@@ -3,260 +3,295 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anix K Binoj | AI/ML Engineer</title>
+  <title>Anix K Binoj | Professional Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --text: #1c1c1e;
+      --muted: #555;
+      --accent: #6ae3ff;
+      --nav-bg: rgba(255,255,255,0.95);
+      --border: #ddd;
+      --shadow: rgba(106,227,255,0.25);
+    }
+
+    body.dark {
       --bg: #0e0f13;
       --card: #161821;
       --text: #e6e6eb;
       --muted: #9aa0a6;
-      --accent: #6ae3ff;
+      --nav-bg: rgba(14,15,19,0.9);
+      --border: #1f2230;
+      --shadow: rgba(106,227,255,0.18);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Inter, system-ui, sans-serif;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background: var(--bg);
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(106,227,255,0.08), transparent 40%),
+                  radial-gradient(800px 500px at 90% 10%, rgba(51,217,255,0.08), transparent 45%),
+                  var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      line-height:1.65;
+      transition: background 0.4s ease, color 0.3s ease;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
+    a { text-decoration:none; color: var(--accent); transition: color 0.3s ease; }
+
+    nav {
+      position: sticky; top:0; background: var(--nav-bg); padding: 16px 24px; display:flex; justify-content: space-between; align-items:center; border-bottom:1px solid var(--border); z-index:100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 80px 24px;
-    }
+    .nav-links a { margin-left:24px; font-weight:600; }
 
-    h1, h2, h3 {
-      font-weight: 600;
-    }
+    section { max-width: 1200px; margin: auto; padding: 110px 20px; }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 16px;
-    }
+    h1 { font-family: 'Clash Display', sans-serif; font-size: 3.4rem; margin-bottom:20px; letter-spacing:-0.02em; }
+    h2 { font-family: 'Clash Display', sans-serif; font-size: 2.4rem; margin-bottom:30px; border-bottom:3px solid var(--accent); display:inline-block; padding-bottom:6px; }
+    h3 { font-size:1.35rem; margin-bottom:12px; font-weight:600; }
+    h2 { font-size: 2.2rem; margin-bottom:30px; border-bottom:3px solid var(--accent); display:inline-block; padding-bottom:6px; }
+    h3 { font-size:1.3rem; margin-bottom:12px; }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 32px;
-    }
+    .hero { display:flex; align-items:center; gap:60px; flex-wrap: wrap; }
+    .hero img { border-radius: 50%; max-width: 260px; border:3px solid var(--accent); box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease; }
+    .hero img:hover { transform: scale(1.05) rotate(2deg); }
+    .hero p { font-size:1.1rem; color: var(--muted); margin-top:10px; }
 
-    p {
-      color: var(--muted);
-    }
+    .btn { margin-top:20px; padding:12px 24px; background: var(--accent); color:#000; font-weight:600; border-radius:8px; display:inline-block; box-shadow:0 8px 20px var(--shadow); transition:0.3s; }
+    .btn:hover { opacity:0.85; transform: translateY(-2px); box-shadow:0 12px 28px var(--shadow); }
 
-    .btn {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #000;
-      font-weight: 500;
-    }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:30px; }
+    .card { background: var(--card); padding:28px; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.08); transition:0.3s, transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-8px); box-shadow:0 16px 40px rgba(0,0,0,0.12); }
+    .card p { color: var(--muted); }
 
-    .hero p {
-      max-width: 600px;
-      font-size: 1.1rem;
-    }
+    .companies img { max-height:60px; margin-bottom:12px; transition: transform 0.3s ease; }
+    .companies img:hover { transform: scale(1.1); }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
+    .links a { margin-right:16px; font-weight:600; transition: color 0.3s ease; }
+    .links a:hover { color: #33d9ff; }
 
-    .card {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 14px;
-      transition: transform 0.2s ease;
-    }
+    footer { text-align:center; padding:40px 20px; color: var(--muted); font-size:0.95rem; }
 
-    .card:hover {
-      transform: translateY(-4px);
+    /* Aura animation for cards */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #6ae3ff, #33d9ff, #6ae3ff, #33d9ff);
+      z-index: -1;
+      filter: blur(18px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
+    .card:hover::before { opacity:1; }
+    .card { position: relative; overflow: hidden; }
 
-    .card h3 {
-      margin-bottom: 12px;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid #222;
-      color: var(--muted);
-    }
-
-    .links a {
-      margin-right: 16px;
-      font-weight: 500;
-    }
+    /* Reveal on scroll */
+    .reveal { opacity:0; transform:translateY(40px); transition: all 0.6s ease; }
+    .reveal.active { opacity:1; transform: none; }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
+  <nav>
+    <div class="logo"><strong>Anix K Binoj</strong></div>
+    <div class="nav-links">
+      <button id="themeToggle" style="background:none;border:none;font-size:1.1rem;cursor:pointer;">🌓</button>
+      <a href="#whatido">What I Do</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
   <!-- HERO -->
-  <section class="hero" style="display:grid;grid-template-columns:1fr 260px;gap:40px;align-items:center;">
+  <section class="hero reveal">
     <div>
-      <h1>I build scalable software products<br>and lead development teams.</h1>
-      <p>
-        Founder of <a href="https://anixandco.gt.tc/" target="_blank"><strong>Anix & Co</strong></a> ·
-        Co‑Founder & Chief Operating Officer at <strong>Antolanz Pvt Ltd</strong> ·
-        Full‑Stack Developer · AI/ML Engineer
-      </p>
+      <h1>Building Scalable Products & Teams</h1>
+      <p style="font-size:1.25rem;font-weight:500;">Hi, I'm <strong>Anix K Binoj</strong></p>
+      <p>Founder of <a href="https://anixandco.gt.tc/" target="_blank">Anix & Co</a> (Independent Development Team) and <strong>Co‑Founder & COO</strong> at Antolanz Pvt Ltd. I craft scalable web applications, AI/ML solutions, and lead development teams to deliver impactful products.</p>
       <a href="#contact" class="btn">Contact Me</a>
     </div>
+    <img src="profile.jpg" alt="Anix K Binoj" class="reveal">
+  </section>
 
-    <div class="profile-photo">
-      <img src="profile.jpg" alt="Anix K Binoj" style="width:100%;border-radius:16px;border:1px solid #222;" />
+  <!-- WHAT I DO -->
+  <section id="whatido" class="reveal">
+    <h2>What I Do</h2>
+    <div class="grid">
+      <div class="card reveal">
+        <h3>Full-Stack Development</h3>
+        <p>Design and build scalable, secure, and high-performance web applications using modern architectures and clean code practices.</p>
+      </div>
+      <div class="card reveal">
+        <h3>AI & ML Engineering</h3>
+        <p>Create intelligent systems for automation, prediction, and decision support using data-driven approaches.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Product & Team Leadership</h3>
+        <p>Lead development teams, manage delivery pipelines, and translate business ideas into real-world software products.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="reveal">
+    <h2>Executive Impact</h2>
+    <div class="grid">
+      <div class="card"><h3>10+ Projects</h3><p>Production-ready systems delivered across education and business domains.</p></div>
+      <div class="card"><h3>3 Products</h3><p>End-to-end ownership from idea to deployment.</p></div>
+      <div class="card"><h3>2 Teams</h3><p>Founded and led independent and startup teams.</p></div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="reveal">
+    <h2>Technology Stack</h2>
+    <div class="grid">
+      <div class="card"><h3>Frontend</h3><p>HTML, CSS, JavaScript, Flutter, Responsive UI, UX Principles</p></div>
+      <div class="card"><h3>Backend</h3><p>PHP, Node.js, REST APIs, Authentication, System Design</p></div>
+      <div class="card"><h3>Database & Cloud</h3><p>MySQL, Firebase, Hosting, Deployment, Git</p></div>
     </div>
   </section>
 
   <!-- COMPANIES -->
-  <section>
+  <section class="reveal">
     <h2>Companies</h2>
-    <div class="grid">
+    <div class="grid companies">
       <a href="https://anixandco.gt.tc/" target="_blank" class="card" style="text-align:center;">
-        <img src="anix-logo.png" alt="Anix & Co" style="height:60px;margin-bottom:12px;" />
-        <p>Founder</p>
+        <img src="anix-logo.png" alt="Anix & Co">
+        <p>Founder (Independent Development Team)</p>
       </a>
       <div class="card" style="text-align:center;">
-        <img src="antolanz-logo.png" alt="Antolanz Pvt Ltd" style="height:60px;margin-bottom:12px;" />
-        <p>Co‑Founder & Chief Operating Officer</p>
+        <img src="antolanz-logo.png" alt="Antolanz Pvt Ltd">
+        <p>Co‑Founder & COO</p>
       </div>
     </div>
   </section>
 
-  <!-- WHAT I DO -->
-  <section>
-    <h2>What I Do</h2>
+  <!-- VISION -->
+  <section class="reveal">
+    <h2>Vision & Philosophy</h2>
     <div class="grid">
-      <div class="card">
-        <h3>Product Engineering</h3>
-        <p>End‑to‑end development of production‑ready software systems.</p>
-      </div>
-      <div class="card">
-        <h3>System Architecture</h3>
-        <p>Clean backend design, APIs, databases, and role‑based systems.</p>
-      </div>
-      <div class="card">
-        <h3>Web & Mobile Apps</h3>
-        <p>Modern web and Flutter applications with strong UX focus.</p>
-      </div>
-      <div class="card">
-        <h3>Team Leadership</h3>
-        <p>Workflow discipline, documentation, and delivery ownership.</p>
-      </div>
+      <div class="card"><h3>Product First</h3><p>I believe software should solve real problems, scale effortlessly, and feel intuitive to use.</p></div>
+      <div class="card"><h3>Engineering Discipline</h3><p>Clean architecture, maintainable code, and performance are non-negotiable.</p></div>
+      <div class="card"><h3>Ownership Mindset</h3><p>I take responsibility from idea to impact, not just feature delivery.</p></div>
+    </div>
+  </section>
+
+  
+
+  <!-- PROCESS -->
+  <section class="reveal">
+    <h2>How I Work</h2>
+    <div class="grid">
+      <div class="card"><h3>Understand</h3><p>Deeply analyze the problem, users, and constraints before writing code.</p></div>
+      <div class="card"><h3>Build</h3><p>Design scalable architecture and implement clean, maintainable solutions.</p></div>
+      <div class="card"><h3>Deliver</h3><p>Test, deploy, and iterate with real-world feedback.</p></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Leadership & Responsibility</h2>
+    <div class="grid">
+      <div class="card"><h3>Founder — Anix & Co</h3><p>Built and scaled an independent development team delivering real-world software products.</p></div>
+      <div class="card"><h3>COO — Antolanz Pvt Ltd</h3><p>Responsible for operations, delivery pipelines, and cross-team coordination.</p></div>
+      <div class="card"><h3>Product Owner</h3><p>End-to-end ownership from ideation to deployment and iteration.</p></div>
     </div>
   </section>
 
   <!-- WORK -->
-  <section id="work">
+  <section id="work" class="reveal">
     <h2>Selected Work</h2>
     <div class="grid">
-      <div class="card">
+      <div class="card reveal">
         <h3>Invenza</h3>
-        <p>
-          Inventory management system built for real organizational workflows
-          with automation and traceability.
-        </p>
-        <ul style="margin-top:12px;color:#9aa0a6;">
-          <li>QR‑based item tracking</li>
-          <li>Staff request & approval flow</li>
-          <li>Usage logging and reports</li>
-          <li>Admin analytics dashboard</li>
-        </ul>
-        <p style="margin-top:12px;"><strong>Tech:</strong> Flutter, REST APIs, MySQL, PHP</p>
+        <p><strong>Problem:</strong> Manual inventory tracking caused loss and inefficiency.</p>
+        <p><strong>Solution:</strong> Built a centralized inventory system with automation and role-based access.</p>
+        <p><strong>Impact:</strong> Improved traceability, reduced manual effort, production-ready.</p>
       </div>
-
-      <div class="card">
+      <div class="card reveal">
         <h3>Alloxam</h3>
-        <p>
-          Exam hall seating allocation automation system designed to eliminate
-          manual errors and reduce administrative workload.
-        </p>
-        <ul style="margin-top:12px;color:#9aa0a6;">
-          <li>Automatic seating generation</li>
-          <li>Conflict‑free allocation logic</li>
-          <li>Exportable seating reports</li>
-        </ul>
-        <p style="margin-top:12px;"><strong>Role:</strong> System Designer & Developer</p>
+        <p><strong>Problem:</strong> Exam hall allocation was time-consuming and error-prone.</p>
+        <p><strong>Solution:</strong> Automated conflict-free seating allocation engine.</p>
+        <p><strong>Impact:</strong> Faster exam preparation with zero seating conflicts.</p>
       </div>
-
-      <div class="card">
+      <div class="card reveal">
         <h3>Acadzy</h3>
-        <p>
-          Campus management system to digitize academic, administrative,
-          and operational workflows.
-        </p>
-        <ul style="margin-top:12px;color:#9aa0a6;">
-          <li>Student & staff management</li>
-          <li>Academic process automation</li>
-          <li>Centralized campus data</li>
-        </ul>
-        <p style="margin-top:12px;"><strong>Focus:</strong> Scalability & clean architecture</p>
+        <p><strong>Problem:</strong> Fragmented academic workflows.</p>
+        <p><strong>Solution:</strong> Unified campus management platform.</p>
+        <p><strong>Impact:</strong> Digitized operations and improved administrative efficiency.</p>
       </div>
     </div>
   </section>
 
-  <!-- PHILOSOPHY -->
-  <section>
-    <h2>How I Work</h2>
+  <!-- TESTIMONIALS -->
+  <section class="reveal">
+    <h2>What People Say</h2>
     <div class="grid">
-      <div class="card">Documentation over excuses</div>
-      <div class="card">Results over promises</div>
-      <div class="card">Clean architecture over hacks</div>
-      <div class="card">Ownership over dependency</div>
+      <div class="card"><p>“Anix brings clarity, ownership, and execution discipline to every product.”</p><strong>— Team Lead</strong></div>
+      <div class="card"><p>“Strong product mindset with real delivery capability.”</p><strong>— Startup Collaborator</strong></div>
+      <div class="card"><p>“Reliable, scalable, and focused on impact.”</p><strong>— Client Feedback</strong></div>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section>
-    <h2>About Me</h2>
-    <p>
-      I focus on building software that solves real problems. My work spans
-      full‑stack systems, team leadership, and production‑grade delivery.
-    </p>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
-    <h2>Let’s Work Together</h2>
-    <p style="margin-bottom:24px;">If you’re building a product or system and value execution, clarity, and ownership — let’s connect.</p>
+  <section id="contact" class="reveal">
+    <h2>Contact Me</h2>
+    <p>Interested in collaborating or have a project in mind? Let's connect.</p>
     <div class="links">
-      <a href="mailto:anixkbinoj123@gmail.com">📧 Email</a>
-      <a href="tel:+918921314633">📞 8921314633</a>
+      <a href="mailto:anixkbinoj123@gmail.com">Email</a>
+      <a href="tel:+918921314633">Phone</a>
       <a href="https://github.com/anixkbinoj" target="_blank">GitHub</a>
       <a href="https://www.linkedin.com/in/anix-k-binoj-3275b4304" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/ani_x._?igsh=ODNxajNiYm9pd3Zv" target="_blank">Instagram</a>
+      <a href="https://instagram.com/anixkbinoj" target="_blank">Instagram</a>
     </div>
   </section>
 
-  <div class="footer">
-    © 2025 Anix K Binoj
-  </div>
+  <</section>
+
+  <!-- TRUST -->
+  <section class="reveal">
+    <h2>Professional Values</h2>
+    <div class="grid">
+      <div class="card"><h3>Reliability</h3><p>Delivery-focused mindset with strong execution discipline.</p></div>
+      <div class="card"><h3>Scalability</h3><p>Systems designed for growth, performance, and maintainability.</p></div>
+      <div class="card"><h3>Integrity</h3><p>Clear communication, ownership, and long-term thinking.</p></div>
+    </div>
+  </section>
+
+  <footer>© 2025 Anix K Binoj • Founder • Co‑Founder • Product Engineer</footer>
 
   <script>
-    // Simple smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+    // Reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if(top < window.innerHeight - 100) el.classList.add('active');
       });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Theme toggle (light / dark)
+    const toggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if(prefersDark) document.body.classList.add('dark');
+
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
     });
   </script>
 
