@@ -1,299 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anix K Binoj | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIX K BINOJ | ARCHITECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@100;400;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #000;
+            --accent: #00f2ff;
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #fff;
+        }
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
 
-  <style>
-    :root {
-      --bg: #f7f8fa;
-      --card: #ffffff;
-      --text: #1c1c1e;
-      --muted: #555;
-      --accent: #6ae3ff;
-      --nav-bg: rgba(255,255,255,0.95);
-      --border: #ddd;
-      --shadow: rgba(106,227,255,0.25);
-    }
+        /* --- MINIMALIST PRELOADER --- */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 0.8s ease;
+        }
+        .loader-name { font-family: 'Syncopate'; font-size: 1.2rem; color: #fff; letter-spacing: 12px; margin-bottom: 25px; text-align: center; font-weight: 700; }
+        .loader-bar-container { width: 200px; height: 1px; background: #111; position: relative; }
+        .loader-bar { width: 0%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: load 1.8s forwards ease-in-out; }
+        @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
 
-    body.dark {
-      --bg: #0e0f13;
-      --card: #161821;
-      --text: #e6e6eb;
-      --muted: #9aa0a6;
-      --nav-bg: rgba(14,15,19,0.9);
-      --border: #1f2230;
-      --shadow: rgba(106,227,255,0.18);
-    }
+        /* --- KINETIC GRID --- */
+        .blueprint {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 100px 100px; z-index: -1; opacity: 0.1;
+            transform: perspective(1000px) rotateX(60deg) translateY(-20%);
+        }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 30px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); z-index: 2000;
+        }
+        .nav-name { font-family: 'Syncopate'; font-weight: 700; color: var(--accent); letter-spacing: 8px; font-size: 0.8rem; }
 
-    body {
-      background: radial-gradient(1200px 600px at 10% 0%, rgba(106,227,255,0.08), transparent 40%),
-                  radial-gradient(800px 500px at 90% 10%, rgba(51,217,255,0.08), transparent 45%),
-                  var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height:1.65;
-      transition: background 0.4s ease, color 0.3s ease;
-    }
+        section { padding: 120px 8% 80px; position: relative; width: 100%; }
 
-    a { text-decoration:none; color: var(--accent); transition: color 0.3s ease; }
+        /* --- HERO MONOLITH --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .command-viewport {
+            width: 100%; max-width: 1200px; height: auto; min-height: 600px;
+            border: 1px solid var(--accent); position: relative; overflow: hidden; display: flex; flex-wrap: wrap;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.1);
+        }
+        .v-left { width: 50%; min-height: 450px; border-right: 1px solid var(--accent); position: relative; }
+        .v-left img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.7); }
+        .v-right { width: 50%; padding: 60px 40px; background: #050505; display: flex; flex-direction: column; justify-content: center; }
+        
+        .hero-title { font-family: 'Syncopate'; font-size: clamp(1.8rem, 4.5vw, 4rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero-title span { color: transparent; -webkit-text-stroke: 1px var(--accent); }
+        .hero-sub { color: #444; text-transform: uppercase; letter-spacing: 5px; font-size: 0.75rem; margin-bottom: 30px; font-weight: 700; }
 
-    nav {
-      position: sticky; top:0; background: var(--nav-bg); padding: 16px 24px; display:flex; justify-content: space-between; align-items:center; border-bottom:1px solid var(--border); z-index:100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    }
+        .scan-bar { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent); animation: scan 4s infinite linear; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-    .nav-links a { margin-left:24px; font-weight:600; }
+        /* --- PROFESSIONAL DOSSIER --- */
+        .dossier { background: #050505; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 8%; }
+        .dossier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .dossier-column h4 { font-family: 'Syncopate'; font-size: 0.6rem; color: var(--accent); letter-spacing: 4px; margin-bottom: 20px; }
+        .dossier-column p { font-size: 1.1rem; line-height: 1.6; color: #eee; font-weight: 300; }
+        .dossier-column b { color: var(--accent); font-weight: 700; }
 
-    section { max-width: 1200px; margin: auto; padding: 110px 20px; }
+        /* --- QUOTE BREAKS --- */
+        .quote-pulse { padding: 120px 10%; text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #000; }
+        .quote-pulse h2 { font-family: 'Syncopate'; font-size: clamp(1rem, 2.5vw, 1.8rem); color: #fff; letter-spacing: 4px; line-height: 1.4; }
+        .quote-pulse b { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
 
-    h1 { font-family: 'Clash Display', sans-serif; font-size: 3.4rem; margin-bottom:20px; letter-spacing:-0.02em; }
-    h2 { font-family: 'Clash Display', sans-serif; font-size: 2.4rem; margin-bottom:30px; border-bottom:3px solid var(--accent); display:inline-block; padding-bottom:6px; }
-    h3 { font-size:1.35rem; margin-bottom:12px; font-weight:600; }
-    h2 { font-size: 2.2rem; margin-bottom:30px; border-bottom:3px solid var(--accent); display:inline-block; padding-bottom:6px; }
-    h3 { font-size:1.3rem; margin-bottom:12px; }
+        /* --- MATRIX GRID --- */
+        .matrix { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+        .cell { background: var(--bg); padding: 70px 40px; transition: 0.4s ease; }
+        .cell:hover { background: #080808; border: 1px solid var(--accent); z-index: 10; }
+        .cell h3 { font-family: 'Syncopate'; font-size: 0.7rem; color: var(--accent); letter-spacing: 5px; margin-bottom: 25px; }
 
-    .hero { display:flex; align-items:center; gap:60px; flex-wrap: wrap; }
-    .hero img { border-radius: 50%; max-width: 260px; border:3px solid var(--accent); box-shadow: 0 8px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease; }
-    .hero img:hover { transform: scale(1.05) rotate(2deg); }
-    .hero p { font-size:1.1rem; color: var(--muted); margin-top:10px; }
+        .span-12 { grid-column: span 12; }
+        .span-6 { grid-column: span 6; }
 
-    .btn { margin-top:20px; padding:12px 24px; background: var(--accent); color:#000; font-weight:600; border-radius:8px; display:inline-block; box-shadow:0 8px 20px var(--shadow); transition:0.3s; }
-    .btn:hover { opacity:0.85; transform: translateY(-2px); box-shadow:0 12px 28px var(--shadow); }
+        .directive { font-size: 1.6rem; font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+        .spec-log { border-left: 2px solid var(--accent); padding-left: 20px; margin-top: 25px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #444; }
 
-    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:30px; }
-    .card { background: var(--card); padding:28px; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.08); transition:0.3s, transform 0.3s, box-shadow 0.3s; }
-    .card:hover { transform: translateY(-8px); box-shadow:0 16px 40px rgba(0,0,0,0.12); }
-    .card p { color: var(--muted); }
+        /* --- CONTACT TERMINAL --- */
+        .uplink-terminal { min-height: 100vh; padding: 0; display: flex; flex-direction: column; }
+        .node-header { background: var(--accent); color: #000; padding: 50px 10%; text-align: center; font-family: 'Syncopate'; letter-spacing: 12px; font-size: 0.9rem; font-weight: 700; }
+        
+        .node-body { display: flex; min-height: 600px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+        .node-l { width: 50%; border-right: 1px solid var(--accent); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; background: #050505; }
+        .node-r { width: 50%; display: grid; grid-template-columns: 1fr 1fr; }
+        
+        .contact-node { 
+            border: 0.5px solid var(--border); text-decoration: none; color: #fff; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            transition: 0.4s; gap: 15px; padding: 40px 10px;
+        }
+        .contact-node i { font-size: 2rem; color: var(--accent); }
+        .contact-node:hover { background: var(--accent); color: #000; }
+        .contact-node:hover i { color: #000; }
+        .contact-node b { font-family: 'JetBrains Mono'; font-size: 0.6rem; letter-spacing: 2px; }
 
-    .companies img { max-height:60px; margin-bottom:12px; transition: transform 0.3s ease; }
-    .companies img:hover { transform: scale(1.1); }
+        footer { padding: 40px 10%; display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 0.7rem; color: #333; letter-spacing: 4px; border-top: 1px solid var(--border); }
 
-    .links a { margin-right:16px; font-weight:600; transition: color 0.3s ease; }
-    .links a:hover { color: #33d9ff; }
-
-    footer { text-align:center; padding:40px 20px; color: var(--muted); font-size:0.95rem; }
-
-    /* Aura animation for cards */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: -6px;
-      right: -6px;
-      bottom: -6px;
-      border-radius: 20px;
-      background: linear-gradient(45deg, #6ae3ff, #33d9ff, #6ae3ff, #33d9ff);
-      z-index: -1;
-      filter: blur(18px);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .card:hover::before { opacity:1; }
-    .card { position: relative; overflow: hidden; }
-
-    /* Reveal on scroll */
-    .reveal { opacity:0; transform:translateY(40px); transition: all 0.6s ease; }
-    .reveal.active { opacity:1; transform: none; }
-  </style>
+        @media (max-width: 1024px) {
+            .v-left, .v-right, .node-l, .node-r { width: 100%; border: none; }
+            .v-left { height: 400px; border-bottom: 1px solid var(--accent); }
+            .dossier-grid { grid-template-columns: 1fr; gap: 30px; }
+            .node-r { grid-template-columns: 1fr; }
+            .span-6 { grid-column: span 12; }
+            footer { text-align: center; flex-direction: column; gap: 20px; }
+        }
+    </style>
 </head>
-<body>
+<body onload="initLoader()">
 
-  <!-- NAV -->
-  <nav>
-    <div class="logo"><strong>Anix K Binoj</strong></div>
-    <div class="nav-links">
-      <button id="themeToggle" style="background:none;border:none;font-size:1.1rem;cursor:pointer;">🌓</button>
-      <a href="#whatido">What I Do</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
+    <div id="loader">
+        <div class="loader-name">ANIX K BINOJ</div>
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
+        </div>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="hero reveal">
-    <div>
-      <h1>Building Scalable Products & Teams</h1>
-      <p style="font-size:1.25rem;font-weight:500;">Hi, I'm <strong>Anix K Binoj</strong></p>
-      <p>Founder of <a href="https://anixandco.gt.tc/" target="_blank">Anix & Co</a> (Independent Development Team) and <strong>Co‑Founder & COO</strong> at Antolanz Pvt Ltd. I craft scalable web applications, AI/ML solutions, and lead development teams to deliver impactful products.</p>
-      <a href="#contact" class="btn">Contact Me</a>
+    <div class="blueprint"></div>
+
+    <nav>
+        <div class="nav-name">ANIX K BINOJ</div>
+        <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--accent);">IDUKKI_HQ // KERALA</div>
+    </nav>
+
+    <section class="hero">
+        <div class="command-viewport">
+            <div class="v-left">
+                <img src="profile.jpg" alt="ANIX K BINOJ">
+                <div class="scan-bar"></div>
+            </div>
+            <div class="v-right">
+                <h1 class="hero-title">PRODUCT<br><span>ARCHITECT.</span></h1>
+                <p class="hero-sub">Founder & CEO @ Anix & Co // Co-Founder & COO @ Antolanz</p>
+                <div class="spec-log">
+                    >> High-Scale Workforce Governance.<br>
+                    >> Cross-Platform Hardware Sync.<br>
+                    >> Institutional Infrastructure Scaling.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-pulse">
+        <h2>"ARCHITECTURE IS THE ART OF <b>ELIMINATING ERROR.</b>"</h2>
     </div>
-    <img src="profile.jpg" alt="Anix K Binoj" class="reveal">
-  </section>
 
-  <!-- WHAT I DO -->
-  <section id="whatido" class="reveal">
-    <h2>What I Do</h2>
-    <div class="grid">
-      <div class="card reveal">
-        <h3>Full-Stack Development</h3>
-        <p>Design and build scalable, secure, and high-performance web applications using modern architectures and clean code practices.</p>
-      </div>
-      <div class="card reveal">
-        <h3>AI & ML Engineering</h3>
-        <p>Create intelligent systems for automation, prediction, and decision support using data-driven approaches.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Product & Team Leadership</h3>
-        <p>Lead development teams, manage delivery pipelines, and translate business ideas into real-world software products.</p>
-      </div>
+    <section class="dossier">
+        <div class="dossier-grid">
+            <div class="dossier-column">
+                <h4>MISSION_DIRECTIVE</h4>
+                <p>Establishing the elimination of <b>operational entropy</b>. I bridge the gap between high-scale institutional logic and seamless hardware synchronization.</p>
+            </div>
+            <div class="dossier-column">
+                <h4>EXECUTIVE_STATUS</h4>
+                <p>Directing the operational heart of <b>Antolanz</b> as Co-Founder & COO, while leading rapid software innovation at <b>Anix & Co</b> as Founder & CEO.</p>
+            </div>
+            <div class="dossier-column">
+                <h4>CORE_FOCUS</h4>
+                <p>Architecting <b>Logistics Engines</b>, <b>Workforce Intelligence</b>, and <b>Campus Ecosystems</b> for institutional-grade reliability.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-pulse">
+        <h2>"I DO NOT BUILD FOR CONVENIENCE.<br>I BUILD FOR <b>PERMANENCE.</b>"</h2>
     </div>
-  </section>
 
-  <!-- STATS -->
-  <section class="reveal">
-    <h2>Executive Impact</h2>
-    <div class="grid">
-      <div class="card"><h3>10+ Projects</h3><p>Production-ready systems delivered across education and business domains.</p></div>
-      <div class="card"><h3>3 Products</h3><p>End-to-end ownership from idea to deployment.</p></div>
-      <div class="card"><h3>2 Teams</h3><p>Founded and led independent and startup teams.</p></div>
+    <section id="deployments">
+        <h2 style="font-family: 'Syncopate'; margin-bottom: 50px; color: var(--accent); font-size: 0.9rem; letter-spacing: 5px;">STRATEGIC_DEPLOYMENTS</h2>
+        <div class="matrix">
+            <div class="cell span-12">
+                <h3>01 // ALLOXAM</h3>
+                <p class="directive">Flagship Algorithmic Hall Allocation Engine. Solving multi-variable logistics with surgical mathematical precision.</p>
+                <div class="spec-log">
+                    >> 90% Latency Reduction in Planning.<br>
+                    >> Conflict-Zero Algorithmic Matrix.
+                </div>
+            </div>
+            <div class="cell span-6">
+                <h3>02 // INVENZA</h3>
+                <p class="directive" style="font-size: 1.4rem;">Institutional Inventory Governance.</p>
+                <p style="color:#666">Resource management for Schools, Colleges, and Churches using persistent audit-trail logic.</p>
+            </div>
+            <div class="cell span-6">
+                <h3>03 // ACADZY</h3>
+                <p class="directive" style="font-size: 1.4rem;">Unified Campus Management.</p>
+                <p style="color:#666">Digital governance of administrative lifecycles and academic workflow synchronization.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-pulse">
+        <h2>"SYSTEMS DO NOT FAIL.<br><b>ARCHITECTURES DO.</b>"</h2>
     </div>
-  </section>
 
-  <!-- TECH STACK -->
-  <section class="reveal">
-    <h2>Technology Stack</h2>
-    <div class="grid">
-      <div class="card"><h3>Frontend</h3><p>HTML, CSS, JavaScript, Flutter, Responsive UI, UX Principles</p></div>
-      <div class="card"><h3>Backend</h3><p>PHP, Node.js, REST APIs, Authentication, System Design</p></div>
-      <div class="card"><h3>Database & Cloud</h3><p>MySQL, Firebase, Hosting, Deployment, Git</p></div>
+    <section>
+        <div class="matrix">
+            <div class="cell span-6">
+                <h3>ZYNTRIX [SCREEN_SYNC]</h3>
+                <p class="directive" style="font-size: 1.4rem;">Hardware Logic Master.</p>
+                <p style="color: #666;">Centralized synchronization for distributed screen control networks and real-time hardware activity synchronization.</p>
+            </div>
+            <div class="cell span-6">
+                <h3>PRO-ACT [WORKFORCE]</h3>
+                <p class="directive" style="font-size: 1.4rem;">Workforce Intelligence Hub.</p>
+                <p style="color: #666;">Institutional workforce monitoring and customer activity governance via real-time logic gates.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-pulse">
+        <h2>"SIMPLICITY IS THE ULTIMATE<br><b>SOPHISTICATION.</b>"</h2>
     </div>
-  </section>
 
-  <!-- COMPANIES -->
-  <section class="reveal">
-    <h2>Companies</h2>
-    <div class="grid companies">
-      <a href="https://anixandco.gt.tc/" target="_blank" class="card" style="text-align:center;">
-        <img src="anix-logo.png" alt="Anix & Co">
-        <p>Founder (Independent Development Team)</p>
-      </a>
-      <div class="card" style="text-align:center;">
-        <img src="antolanz-logo.png" alt="Antolanz Pvt Ltd">
-        <p>Co‑Founder & COO</p>
-      </div>
-    </div>
-  </section>
+    <section>
+        <h2 style="font-family: 'Syncopate'; margin-bottom: 50px; color: var(--accent); font-size: 0.9rem; letter-spacing: 5px;">TECHNICAL_ARSENAL</h2>
+        <div class="matrix">
+            <div class="cell span-12">
+                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                    <span style="border: 1px solid #222; padding: 12px 24px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #666;">FLUTTER</span>
+                    <span style="border: 1px solid #222; padding: 12px 24px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #666;">PYTHON</span>
+                    <span style="border: 1px solid #222; padding: 12px 24px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #666;">NODE.JS</span>
+                    <span style="border: 1px solid #222; padding: 12px 24px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #666;">AI/ML</span>
+                    <span style="border: 1px solid #222; padding: 12px 24px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #666;">PHP / MYSQL</span>
+                    <span style="border: 1px solid #222; padding: 12px 24px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #666;">CI/CD</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- VISION -->
-  <section class="reveal">
-    <h2>Vision & Philosophy</h2>
-    <div class="grid">
-      <div class="card"><h3>Product First</h3><p>I believe software should solve real problems, scale effortlessly, and feel intuitive to use.</p></div>
-      <div class="card"><h3>Engineering Discipline</h3><p>Clean architecture, maintainable code, and performance are non-negotiable.</p></div>
-      <div class="card"><h3>Ownership Mindset</h3><p>I take responsibility from idea to impact, not just feature delivery.</p></div>
-    </div>
-  </section>
+    <section id="contact" class="uplink-terminal">
+        <div class="node-header">INITIATE_CONTACT</div>
+        <div class="node-body">
+            <div class="node-l">
+                <h2 style="font-family: 'Syncopate'; font-size: 2.5rem; line-height: 1.1;">SYSTEM<br><span>UPLINK.</span></h2>
+                <p style="color: #444; margin-top: 20px; text-transform: uppercase; letter-spacing: 2px;">HQ: IDUKKI. ALL PROFESSIONAL PROTOCOLS ACTIVE.</p>
+            </div>
+            <div class="node-r">
+                <a href="tel:+918921314633" class="contact-node"><i class="fas fa-phone-alt"></i><b>Voice</b></a>
+                <a href="mailto:anixkbinoj123@gmail.com" class="contact-node"><i class="fas fa-paper-plane"></i><b>Data</b></a>
+                <a href="https://www.linkedin.com/in/anix-k-binoj-3275b4304" target="_blank" class="contact-node"><i class="fab fa-linkedin-in"></i><b>Node</b></a>
+                <a href="https://www.instagram.com/ani_x._?igsh=ODNxajNiYm9pd3Zv" target="_blank" class="contact-node"><i class="fab fa-instagram"></i><b>Uplink</b></a>
+            </div>
+        </div>
+    </section>
 
-  
+    <footer>
+        <div>ANIX K BINOJ // HQ_IDUKKI</div>
+        <div>ALL PROTOCOLS ACTIVE // 2026 ©</div>
+    </footer>
 
-  <!-- PROCESS -->
-  <section class="reveal">
-    <h2>How I Work</h2>
-    <div class="grid">
-      <div class="card"><h3>Understand</h3><p>Deeply analyze the problem, users, and constraints before writing code.</p></div>
-      <div class="card"><h3>Build</h3><p>Design scalable architecture and implement clean, maintainable solutions.</p></div>
-      <div class="card"><h3>Deliver</h3><p>Test, deploy, and iterate with real-world feedback.</p></div>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <h2>Leadership & Responsibility</h2>
-    <div class="grid">
-      <div class="card"><h3>Founder — Anix & Co</h3><p>Built and scaled an independent development team delivering real-world software products.</p></div>
-      <div class="card"><h3>COO — Antolanz Pvt Ltd</h3><p>Responsible for operations, delivery pipelines, and cross-team coordination.</p></div>
-      <div class="card"><h3>Product Owner</h3><p>End-to-end ownership from ideation to deployment and iteration.</p></div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section id="work" class="reveal">
-    <h2>Selected Work</h2>
-    <div class="grid">
-      <div class="card reveal">
-        <h3>Invenza</h3>
-        <p><strong>Problem:</strong> Manual inventory tracking caused loss and inefficiency.</p>
-        <p><strong>Solution:</strong> Built a centralized inventory system with automation and role-based access.</p>
-        <p><strong>Impact:</strong> Improved traceability, reduced manual effort, production-ready.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Alloxam</h3>
-        <p><strong>Problem:</strong> Exam hall allocation was time-consuming and error-prone.</p>
-        <p><strong>Solution:</strong> Automated conflict-free seating allocation engine.</p>
-        <p><strong>Impact:</strong> Faster exam preparation with zero seating conflicts.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Acadzy</h3>
-        <p><strong>Problem:</strong> Fragmented academic workflows.</p>
-        <p><strong>Solution:</strong> Unified campus management platform.</p>
-        <p><strong>Impact:</strong> Digitized operations and improved administrative efficiency.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="reveal">
-    <h2>What People Say</h2>
-    <div class="grid">
-      <div class="card"><p>“Anix brings clarity, ownership, and execution discipline to every product.”</p><strong>— Team Lead</strong></div>
-      <div class="card"><p>“Strong product mindset with real delivery capability.”</p><strong>— Startup Collaborator</strong></div>
-      <div class="card"><p>“Reliable, scalable, and focused on impact.”</p><strong>— Client Feedback</strong></div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="reveal">
-    <h2>Contact Me</h2>
-    <p>Interested in collaborating or have a project in mind? Let's connect.</p>
-    <div class="links">
-      <a href="mailto:anixkbinoj123@gmail.com">Email</a>
-      <a href="tel:+918921314633">Phone</a>
-      <a href="https://github.com/anixkbinoj" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/anix-k-binoj-3275b4304" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/ani_x._?igsh=ODNxajNiYm9pd3Zv" target="_blank">Instagram</a>
-    </div>
-  </section>
-
-  <</section>
-
-  <!-- TRUST -->
-  <section class="reveal">
-    <h2>Professional Values</h2>
-    <div class="grid">
-      <div class="card"><h3>Reliability</h3><p>Delivery-focused mindset with strong execution discipline.</p></div>
-      <div class="card"><h3>Scalability</h3><p>Systems designed for growth, performance, and maintainability.</p></div>
-      <div class="card"><h3>Integrity</h3><p>Clear communication, ownership, and long-term thinking.</p></div>
-    </div>
-  </section>
-
-  <footer>© 2025 Anix K Binoj • Founder • Co‑Founder • Product Engineer</footer>
-
-  <script>
-    // Reveal animation
-    const reveals = document.querySelectorAll('.reveal');
-    const revealOnScroll = () => {
-      reveals.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if(top < window.innerHeight - 100) el.classList.add('active');
-      });
-    };
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
-
-    // Theme toggle (light / dark)
-    const toggle = document.getElementById('themeToggle');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if(prefersDark) document.body.classList.add('dark');
-
-    toggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-    });
-  </script>
+    <script>
+        function initLoader() {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 1800);
+        }
+    </script>
 
 </body>
 </html>
