@@ -1,264 +1,975 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anix K Binoj | AI/ML Engineer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anix K Binoj | Software Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #0e0f13;
-      --card: #161821;
-      --text: #e6e6eb;
-      --muted: #9aa0a6;
-      --accent: #6ae3ff;
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
     }
+    </script>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Inter, system-ui, sans-serif;
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+    <style>
+        #loader {
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: #08080e;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #loader h1 {
+            font-family: 'Syncopate', monospace;
+            font-size: 1.2rem; letter-spacing: 8px;
+            background: linear-gradient(135deg, var(--accent), #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+        }
+        #loader .bar {
+            width: 200px; height: 1px;
+            background: rgba(255,255,255,0.06);
+            position: relative; overflow: hidden;
+        }
+        #loader .bar::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: load 1.8s ease-in-out infinite;
+        }
+        @keyframes load { 100% { left: 200%; } }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+        :root {
+            --accent: #00f2ff;
+            --accent-rgb: 0, 242, 255;
+        }
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 80px 24px;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    h1, h2, h3 {
-      font-weight: 600;
-    }
+        body {
+            background: #08080e;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 16px;
-    }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #08080e; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 32px;
-    }
+        #webgl-container {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+        }
 
-    p {
-      color: var(--muted);
-    }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: 'Syncopate', monospace;
+            font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase;
+            background: #0a0a12;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        nav .logo {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav .status { color: var(--accent); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-    .btn {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #000;
-      font-weight: 500;
-    }
+        section { position: relative; z-index: 2; }
 
-    .hero p {
-      max-width: 600px;
-      font-size: 1.1rem;
-    }
+        .section-block {
+            background: #0a0a12;
+            padding: 70px 5%;
+            margin: 0;
+            position: relative;
+        }
+        .section-block + .section-block { border-top: 1px solid rgba(255,255,255,0.04); }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
+        .section-inner { max-width: 1200px; margin: 0 auto; }
 
-    .card {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 14px;
-      transition: transform 0.2s ease;
-    }
+        .section-label {
+            font-family: 'Syncopate', monospace;
+            font-size: 0.6rem; letter-spacing: 6px;
+            color: var(--accent); margin-bottom: 6px;
+        }
+        .section-line {
+            width: 40px; height: 1px;
+            background: var(--accent); margin-bottom: 32px;
+        }
 
-    .card:hover {
-      transform: translateY(-4px);
-    }
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 120px 5% 60px;
+            background: #0a0a12;
+        }
+        .hero-inner {
+            display: flex; align-items: center; gap: 80px;
+            max-width: 1200px; width: 100%;
+        }
 
-    .card h3 {
-      margin-bottom: 12px;
-    }
+        .photo-card-wrap { perspective: 2000px; flex-shrink: 0; }
 
-    .footer {
-      text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid #222;
-      color: var(--muted);
-    }
+        .photo-card {
+            width: 320px; height: 420px;
+            position: relative; transform-style: preserve-3d;
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid #333366;
+            box-shadow: 0 0 30px rgba(0,242,255,0.06);
+        }
+        .photo-card img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; z-index: 1;
+        }
+        .photo-card::before {
+            content: ''; position: absolute; inset: 0; z-index: 2;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,242,255,0.02) 3px, rgba(0,242,255,0.02) 6px);
+            pointer-events: none;
+        }
+        .photo-card::after {
+            content: ''; position: absolute; inset: 0; z-index: 3;
+            background: linear-gradient(135deg, transparent 20%, rgba(0,242,255,0.04) 40%, transparent 60%, rgba(255,0,255,0.03) 80%);
+            background-size: 200% 200%;
+            animation: sheen 8s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes sheen { 0%{background-position:0% 0%} 50%{background-position:100% 100%} 100%{background-position:0% 0%} }
+        .photo-card .glitch-border {
+            position: absolute; inset:-1px; z-index:4; border-radius:16px;
+            border:1px solid transparent;
+            background: linear-gradient(135deg, var(--accent), #ff00ff, var(--accent)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity:0.3; transition:opacity 0.3s; pointer-events:none;
+        }
+        .photo-card:hover .glitch-border { opacity: 1; }
 
-    .links a {
-      margin-right: 16px;
-      font-weight: 500;
-    }
-  </style>
+        .hero-text { flex: 1; }
+        .hero-text .tagline {
+            font-family: 'Syncopate', monospace;
+            font-size: 0.6rem; letter-spacing: 5px;
+            color: var(--accent); margin-bottom: 16px;
+        }
+        .hero-text h1 {
+            font-family: 'Syncopate', monospace;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            line-height: 0.85; text-transform: uppercase;
+        }
+        .hero-text h1 .outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--accent);
+        }
+        .hero-text h1 .solid {
+            background: linear-gradient(135deg, var(--accent), #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-text .subtitle {
+            font-size: 1rem; font-weight: 400;
+            color: #ccc; margin-top: 20px; line-height: 1.7;
+            max-width: 520px;
+        }
+        .hero-text .subtitle strong { color: #fff; }
+        .hero-text .cta {
+            display: inline-block; margin-top: 30px;
+            padding: 12px 36px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Syncopate', monospace;
+            font-size: 0.55rem; letter-spacing: 4px;
+            text-decoration: none; text-transform: uppercase;
+            transition: all 0.3s; cursor: pointer; background: transparent;
+        }
+        .hero-text .cta:hover { background: var(--accent); color: #000; }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; }
+        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1px; }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; }
+        .company-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; }
+        .phil-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; }
+        .card-grid, .work-grid, .project-grid, .company-grid, .phil-grid { background: rgba(255,255,255,0.06); }
+
+        .card-item, .work-card, .project-card, .company-card, .phil-item {
+            padding: 30px; background: #151520; border: none;
+        }
+        .card-item:hover, .work-card:hover, .project-card:hover, .company-card:hover, .phil-item:hover {
+            background: #1e1e30; border-color: #00f2ff;
+        }
+
+        .card-item h3, .work-card h3, .project-card h3 {
+            font-family: 'Syncopate', monospace; color: var(--accent);
+            font-size: 0.55rem; letter-spacing: 3px; margin-bottom: 12px;
+        }
+        .card-item p, .work-card > p {
+            font-size: 0.95rem; line-height: 1.6; color: #fff;
+        }
+        .work-card ul { list-style: none; margin: 12px 0; }
+        .work-card ul li {
+            font-size: 0.85rem; color: #ccc; padding: 4px 0 4px 16px; position: relative;
+        }
+        .work-card ul li::before {
+            content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700;
+        }
+        .work-card .tech-tag { font-size: 0.65rem; color: var(--accent); letter-spacing: 1px; }
+        .work-card .role-tag { font-size: 0.65rem; color: #999; letter-spacing: 1px; }
+
+        .project-card { cursor: pointer; position: relative; }
+        .project-card .proj-num {
+            font-family: 'Syncopate', monospace; font-size: 2rem; font-weight: 700;
+            color: rgba(255,255,255,0.04); position: absolute; top: 16px; right: 20px;
+        }
+        .project-card p { font-size: 1.1rem; font-weight: 500; line-height: 1.3; margin-bottom: 10px; color: #eee; }
+        .project-card .tag { font-size: 0.65rem; color: #aaa; letter-spacing: 1px; }
+        .project-card .tag .highlight { color: var(--accent); }
+
+        .phil-item { text-align: center; font-weight: 500; font-size: 1rem; letter-spacing: 1px; color: #fff; }
+        .phil-item:hover { color: var(--accent); }
+
+        .about-text { font-size: 1rem; line-height: 1.8; color: #ddd; max-width: 700px; }
+
+        .company-card { text-align: center; text-decoration: none; color: inherit; display: block; }
+        .company-card img { height: 44px; margin-bottom: 10px; opacity: 0.8; }
+        .company-card:hover img { opacity: 1; }
+        .company-card p { font-size: 0.85rem; color: #ccc; }
+
+        .contact-links {
+            display: flex; flex-wrap: wrap; gap: 12px;
+        }
+        .contact-links a {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #1a1a2e;
+            border: 1px solid #333366;
+            color: #fff;
+            font-family: 'Syncopate', monospace;
+            font-size: 0.55rem; letter-spacing: 3px;
+            text-decoration: none; text-transform: uppercase;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .contact-links a:hover {
+            background: #00f2ff;
+            border-color: #00f2ff;
+            color: #000;
+            box-shadow: 0 0 25px rgba(0,242,255,0.2);
+        }
+
+        footer {
+            padding: 40px 5%; text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.6rem; color: #555;
+            font-family: 'Syncopate', monospace; letter-spacing: 3px;
+            background: #0a0a12;
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner { flex-direction: column; gap: 40px; text-align: center; }
+            .photo-card { width: 240px; height: 320px; }
+            .hero-text .subtitle { max-width: 100%; }
+            nav { padding: 16px 5%; font-size: 0.45rem; }
+            .section-block { padding: 50px 5%; }
+        }
+        @media (max-width: 480px) {
+            .photo-card { width: 180px; height: 240px; }
+            .hero-text h1 { font-size: 2rem; }
+            .contact-links a { width: 100%; text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero" style="display:grid;grid-template-columns:1fr 260px;gap:40px;align-items:center;">
-    <div>
-      <h1>I build scalable software products<br>and lead development teams.</h1>
-      <p>
-        Founder of <a href="https://anixandco.gt.tc/" target="_blank"><strong>Anix & Co</strong></a> ·
-        Co‑Founder & Chief Operating Officer at <strong>Antolanz Pvt Ltd</strong> ·
-        Full‑Stack Developer · AI/ML Engineer
-      </p>
-      <a href="#contact" class="btn">Contact Me</a>
+    <div id="loader">
+        <h1>ANIX K BINOJ</h1>
+        <div class="bar"></div>
     </div>
 
-    <div class="profile-photo">
-      <img src="profile.jpg" alt="Anix K Binoj" style="width:100%;border-radius:16px;border:1px solid #222;" />
-    </div>
-  </section>
+    <div id="webgl-container"></div>
 
-  <!-- COMPANIES -->
-  <section>
-    <h2>Companies</h2>
-    <div class="grid">
-      <a href="https://anixandco.gt.tc/" target="_blank" class="card" style="text-align:center;">
-        <img src="anix-logo.png" alt="Anix & Co" style="height:60px;margin-bottom:12px;" />
-        <p>Founder</p>
-      </a>
-      <div class="card" style="text-align:center;">
-        <img src="antolanz-logo.png" alt="Antolanz Pvt Ltd" style="height:60px;margin-bottom:12px;" />
-        <p>Co‑Founder & Chief Operating Officer</p>
-      </div>
-    </div>
-  </section>
+    <nav>
+        <div class="logo">ANIX K BINOJ</div>
+        <div class="status">● SYSTEM_ACTIVE</div>
+    </nav>
 
-  <!-- WHAT I DO -->
-  <section>
-    <h2>What I Do</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Product Engineering</h3>
-        <p>End‑to‑end development of production‑ready software systems.</p>
-      </div>
-      <div class="card">
-        <h3>System Architecture</h3>
-        <p>Clean backend design, APIs, databases, and role‑based systems.</p>
-      </div>
-      <div class="card">
-        <h3>Web & Mobile Apps</h3>
-        <p>Modern web and Flutter applications with strong UX focus.</p>
-      </div>
-      <div class="card">
-        <h3>Team Leadership</h3>
-        <p>Workflow discipline, documentation, and delivery ownership.</p>
-      </div>
-    </div>
-  </section>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="photo-card-wrap" id="photoCardWrap">
+                <div class="photo-card" id="photoCard">
+                    <img src="profile.jpg" alt="Anix K Binoj">
+                    <div class="glitch-border"></div>
+                </div>
+            </div>
+            <div class="hero-text">
+                <div class="tagline">SOFTWARE ARCHITECT // ENGINEER</div>
+                <h1>
+                    <span class="outline">ANIX</span><br>
+                    <span class="solid">K BINOJ</span>
+                </h1>
+                <p class="subtitle">
+                    Founder of <strong>Anix &amp; Co</strong> &middot;
+                    Co-Founder &amp; COO at <strong>Antolanz Pvt Ltd</strong> &middot;
+                    Full-Stack Developer &amp; AI/ML Engineer
+                </p>
+                <button class="cta" id="exploreBtn">Explore Work</button>
+            </div>
+        </div>
+    </section>
 
-  <!-- WORK -->
-  <section id="work">
-    <h2>Selected Work</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Invenza</h3>
-        <p>
-          Inventory management system built for real organizational workflows
-          with automation and traceability.
-        </p>
-        <ul style="margin-top:12px;color:#9aa0a6;">
-          <li>QR‑based item tracking</li>
-          <li>Staff request & approval flow</li>
-          <li>Usage logging and reports</li>
-          <li>Admin analytics dashboard</li>
-        </ul>
-        <p style="margin-top:12px;"><strong>Tech:</strong> Flutter, REST APIs, MySQL, PHP</p>
-      </div>
+    <!-- COMPANIES -->
+    <section class="section-block">
+        <div class="section-inner">
+            <div class="section-label">// VENTURES</div>
+            <div class="section-line"></div>
+            <div class="company-grid">
+                <a href="https://anixandco.gt.tc/" target="_blank" class="company-card">
+                    <img src="anix-logo.png" alt="Anix & Co">
+                    <h3 style="font-family:'Syncopate',monospace;color:var(--accent);font-size:0.6rem;letter-spacing:3px;margin-bottom:8px;">ANIX &amp; CO</h3>
+                    <p>Founder</p>
+                </a>
+                <div class="company-card">
+                    <img src="antolanz-logo.png" alt="Antolanz Pvt Ltd">
+                    <h3 style="font-family:'Syncopate',monospace;color:var(--accent);font-size:0.6rem;letter-spacing:3px;margin-bottom:8px;">ANTOLANZ PVT LTD</h3>
+                    <p>Co-Founder &amp; Chief Operating Officer</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="card">
-        <h3>Alloxam</h3>
-        <p>
-          Exam hall seating allocation automation system designed to eliminate
-          manual errors and reduce administrative workload.
-        </p>
-        <ul style="margin-top:12px;color:#9aa0a6;">
-          <li>Automatic seating generation</li>
-          <li>Conflict‑free allocation logic</li>
-          <li>Exportable seating reports</li>
-        </ul>
-        <p style="margin-top:12px;"><strong>Role:</strong> System Designer & Developer</p>
-      </div>
+    <!-- WHAT I DO -->
+    <section class="section-block">
+        <div class="section-inner">
+            <div class="section-label">// CAPABILITIES</div>
+            <div class="section-line"></div>
+            <div class="card-grid">
+                <div class="card-item">
+                    <h3>PRODUCT ENGINEERING</h3>
+                    <p>End-to-end development of production-ready software systems.</p>
+                </div>
+                <div class="card-item">
+                    <h3>SYSTEM ARCHITECTURE</h3>
+                    <p>Clean backend design, APIs, databases, and role-based systems.</p>
+                </div>
+                <div class="card-item">
+                    <h3>WEB &amp; MOBILE APPS</h3>
+                    <p>Modern web and Flutter applications with strong UX focus.</p>
+                </div>
+                <div class="card-item">
+                    <h3>TEAM LEADERSHIP</h3>
+                    <p>Workflow discipline, documentation, and delivery ownership.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="card">
-        <h3>Acadzy</h3>
-        <p>
-          Campus management system to digitize academic, administrative,
-          and operational workflows.
-        </p>
-        <ul style="margin-top:12px;color:#9aa0a6;">
-          <li>Student & staff management</li>
-          <li>Academic process automation</li>
-          <li>Centralized campus data</li>
-        </ul>
-        <p style="margin-top:12px;"><strong>Focus:</strong> Scalability & clean architecture</p>
-      </div>
-    </div>
-  </section>
+    <!-- SELECTED WORK -->
+    <section class="section-block">
+        <div class="section-inner">
+            <div class="section-label">// SELECTED WORK</div>
+            <div class="section-line"></div>
+            <div class="work-grid">
+                <div class="work-card">
+                    <h3>INVENZA</h3>
+                    <p>Inventory management system built for real organizational workflows with automation and traceability.</p>
+                    <ul>
+                        <li>QR-based item tracking</li>
+                        <li>Staff request &amp; approval flow</li>
+                        <li>Usage logging and reports</li>
+                        <li>Admin analytics dashboard</li>
+                    </ul>
+                    <div class="tech-tag">Tech: Flutter, REST APIs, MySQL, PHP</div>
+                </div>
+                <div class="work-card">
+                    <h3>ALLOXAM</h3>
+                    <p>Exam hall seating allocation automation system designed to eliminate manual errors and reduce administrative workload.</p>
+                    <ul>
+                        <li>Automatic seating generation</li>
+                        <li>Conflict-free allocation logic</li>
+                        <li>Exportable seating reports</li>
+                    </ul>
+                    <div class="role-tag">Role: System Designer &amp; Developer</div>
+                </div>
+                <div class="work-card">
+                    <h3>ACADZY</h3>
+                    <p>Campus management system to digitize academic, administrative, and operational workflows.</p>
+                    <ul>
+                        <li>Student &amp; staff management</li>
+                        <li>Academic process automation</li>
+                        <li>Centralized campus data</li>
+                    </ul>
+                    <div class="tech-tag">Focus: Scalability &amp; clean architecture</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- PHILOSOPHY -->
-  <section>
-    <h2>How I Work</h2>
-    <div class="grid">
-      <div class="card">Documentation over excuses</div>
-      <div class="card">Results over promises</div>
-      <div class="card">Clean architecture over hacks</div>
-      <div class="card">Ownership over dependency</div>
-    </div>
-  </section>
+    <!-- CORE DEPLOYMENTS -->
+    <section class="section-block projects" id="projects">
+        <div class="section-inner">
+            <div class="section-label">// CORE DEPLOYMENTS</div>
+            <div class="section-line"></div>
+            <div class="project-grid">
+                <div class="project-card" data-index="0">
+                    <div class="card-border"></div>
+                    <div class="proj-num">01</div>
+                    <h3>// ALLOXAM</h3>
+                    <p>Exam Logistics &amp; Hall Allocation Engine</p>
+                    <div class="tag">STATUS: <span class="highlight">PRODUCTION_READY</span></div>
+                </div>
+                <div class="project-card" data-index="1">
+                    <div class="card-border"></div>
+                    <div class="proj-num">02</div>
+                    <h3>// INVENZA</h3>
+                    <p>Institutional Resource Governance</p>
+                    <div class="tag">STATUS: <span class="highlight">ACTIVE_DEPLOYMENT</span></div>
+                </div>
+                <div class="project-card" data-index="2">
+                    <div class="card-border"></div>
+                    <div class="proj-num">03</div>
+                    <h3>// ACADZY</h3>
+                    <p>Unified Campus Management Ecosystem</p>
+                    <div class="tag">STATUS: <span class="highlight">LIVE</span></div>
+                </div>
+                <div class="project-card" data-index="3">
+                    <div class="card-border"></div>
+                    <div class="proj-num">04</div>
+                    <h3>// ZYNTRIX</h3>
+                    <p>Event Synchronized Screen Control</p>
+                    <div class="tag">STATUS: <span class="highlight">HARDWARE_SYNC</span></div>
+                </div>
+                <div class="project-card" data-index="4">
+                    <div class="card-border"></div>
+                    <div class="proj-num">05</div>
+                    <h3>// PRO-ACT</h3>
+                    <p>Workforce Monitoring &amp; Activity Hub</p>
+                    <div class="tag">STATUS: <span class="highlight">OPERATIONAL</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- ABOUT -->
-  <section>
-    <h2>About Me</h2>
-    <p>
-      I focus on building software that solves real problems. My work spans
-      full‑stack systems, team leadership, and production‑grade delivery.
-    </p>
-  </section>
+    <!-- PHILOSOPHY -->
+    <section class="section-block">
+        <div class="section-inner">
+            <div class="section-label">// HOW I WORK</div>
+            <div class="section-line"></div>
+            <div class="phil-grid">
+                <div class="phil-item">Documentation over excuses</div>
+                <div class="phil-item">Results over promises</div>
+                <div class="phil-item">Clean architecture over hacks</div>
+                <div class="phil-item">Ownership over dependency</div>
+            </div>
+        </div>
+    </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Let’s Work Together</h2>
-    <p style="margin-bottom:24px;">If you’re building a product or system and value execution, clarity, and ownership — let’s connect.</p>
-    <div class="links">
-      <a href="mailto:anixkbinoj123@gmail.com">📧 Email</a>
-      <a href="tel:+918921314633">📞 8921314633</a>
-      <a href="https://github.com/anixkbinoj" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/anix-k-binoj-3275b4304" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/ani_x._?igsh=ODNxajNiYm9pd3Zv" target="_blank">Instagram</a>
-    </div>
-  </section>
+    <!-- ABOUT -->
+    <section class="section-block">
+        <div class="section-inner">
+            <div class="section-label">// ABOUT</div>
+            <div class="section-line"></div>
+            <p class="about-text">
+                I focus on building software that solves real problems. My work spans
+                full-stack systems, team leadership, and production-grade delivery.
+                I believe in clean architecture, disciplined execution, and shipping
+                products that make a tangible impact.
+            </p>
+        </div>
+    </section>
 
-  <div class="footer">
-    © 2025 Anix K Binoj
-  </div>
+    <!-- CONTACT -->
+    <section class="section-block">
+        <div class="section-inner">
+            <div class="section-label">// CONNECT</div>
+            <div class="section-line"></div>
+            <p style="color:#ddd;margin-bottom:24px;font-weight:400;font-size:1.05rem;">
+                If you're building a product or system and value execution, clarity, and ownership — let's connect.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:anixkbinoj123@gmail.com"><span class="emoji">✧</span> Email</a>
+                <a href="tel:+918921314633"><span class="emoji">✧</span> +91 8921314633</a>
+                <a href="https://github.com/anixkbinoj" target="_blank"><span class="emoji">✧</span> GitHub</a>
+                <a href="https://www.linkedin.com/in/anix-k-binoj-3275b4304" target="_blank"><span class="emoji">✧</span> LinkedIn</a>
+                <a href="https://www.instagram.com/ani_x._?igsh=ODNxajNiYm9pd3Zv" target="_blank"><span class="emoji">✧</span> Instagram</a>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Simple smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+    <footer>
+        <div>&copy; 2025 ANIX K BINOJ &nbsp;//&nbsp; SOFTWARE ARCHITECT</div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        // ============================
+        // 1. SCENE SETUP
+        // ============================
+        const container = document.getElementById('webgl-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        scene.fog = new THREE.Fog(0x000000, 5, 15);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0.5, 8);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 0.8;
+        container.appendChild(renderer.domElement);
+
+        const composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.3, 0.1, 0.05);
+        composer.addPass(bloomPass);
+
+        // ============================
+        // 2. AURORA SHADER BACKGROUND
+        // ============================
+        const auroraMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+                uAccent: { value: new THREE.Color(0x00f2ff) },
+            },
+            vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+            fragmentShader: `
+                uniform float uTime; uniform vec2 uMouse; uniform vec3 uAccent; varying vec2 vUv;
+                float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+                float noise(vec2 p) {
+                    vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);
+                    return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+                }
+                float fbm(vec2 p) { float v = 0.0; float a = 0.5; for (int i = 0; i < 5; i++) { v += a * noise(p); p = p * 2.0 + vec2(100.0); a *= 0.5; } return v; }
+                void main() {
+                    vec2 uv = vUv; vec2 mouse = uMouse; float t = uTime * 0.04;
+                    float a1 = fbm(uv * 3.0 + t + mouse * 0.3);
+                    float a2 = fbm(uv * 4.5 - t * 0.6 + vec2(0.3, 0.7) + mouse * 0.15);
+                    float a3 = fbm(uv * 2.0 + t * 1.2 + mouse * 0.1);
+                    vec3 col = mix(uAccent, vec3(1.0, 0.0, 1.0), a1);
+                    col = mix(col, vec3(0.0, 1.0, 0.53), a2 * 0.5);
+                    col = mix(col, vec3(0.3, 0.0, 0.8), a3 * 0.3);
+                    float alpha = a1 * 0.5 + a2 * 0.25 + a3 * 0.25;
+                    col *= alpha * 0.12; col += vec3(0.015);
+                    gl_FragColor = vec4(col, 1.0);
+                }
+            `,
+            depthWrite: false, depthTest: false,
         });
-      });
-    });
-  </script>
+
+        const bgMesh = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), auroraMaterial);
+        bgMesh.position.z = -25;
+        scene.add(bgMesh);
+
+        // ============================
+        // 3. PARTICLE GALAXY
+        // ============================
+        const pCount = 8000;
+        const pa = new Float32Array(pCount * 3), ca = new Float32Array(pCount * 3);
+        const c = new THREE.Color();
+        for (let i = 0; i < pCount; i++) {
+            const r = Math.pow(Math.random(), 1.8) * 18;
+            const angle = r * 2.5 + Math.random() * 1.5;
+            const spread = (Math.random() - 0.5) * 4;
+            const h = (Math.random() - 0.5) * 10;
+            pa[i*3] = Math.cos(angle + r * 0.3) * r + (Math.random()-0.5) * 0.2;
+            pa[i*3+1] = h + spread * 0.3;
+            pa[i*3+2] = Math.sin(angle + r * 0.3) * r + (Math.random()-0.5) * 0.2;
+            c.setHSL(0.45 + (r / 18) * 0.4, 0.9, 0.3 + Math.random() * 0.4);
+            ca[i*3] = c.r; ca[i*3+1] = c.g; ca[i*3+2] = c.b;
+        }
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pa, 3));
+        pGeo.setAttribute('color', new THREE.BufferAttribute(ca, 3));
+        const pMat = new THREE.PointsMaterial({
+            size: 0.06, vertexColors: true, transparent: true, opacity: 0.5,
+            blending: THREE.AdditiveBlending, sizeAttenuation: true, depthWrite: false,
+        });
+        const particles = new THREE.Points(pGeo, pMat);
+        scene.add(particles);
+
+        // ============================
+        // 4. FLOATING GEOMETRIES
+        // ============================
+        const knotMat = new THREE.MeshPhysicalMaterial({
+            color: 0x00f2ff, emissive: 0x00f2ff, emissiveIntensity: 0.2,
+            metalness: 0.8, roughness: 0.15, clearcoat: 1.0, transparent: true, opacity: 0.6,
+        });
+        const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(0.7, 0.25, 128, 16), knotMat);
+        knot.position.set(4, 2, -4);
+        scene.add(knot);
+
+        const icoMat = new THREE.MeshPhysicalMaterial({
+            color: 0xff00ff, emissive: 0xff00ff, emissiveIntensity: 0.15,
+            metalness: 0.6, roughness: 0.2, transparent: true, opacity: 0.4,
+        });
+        const ico = new THREE.Mesh(new THREE.IcosahedronGeometry(0.4, 1), icoMat);
+        ico.position.set(-4, -1.5, -5);
+        scene.add(ico);
+
+        const icoWire = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(0.6, 0),
+            new THREE.MeshBasicMaterial({ color: 0x00ff88, wireframe: true, transparent: true, opacity: 0.08 })
+        );
+        icoWire.position.copy(ico.position);
+        scene.add(icoWire);
+
+        const dotGroup = new THREE.Group();
+        const dotMat = new THREE.MeshPhysicalMaterial({ color: 0x00f2ff, emissive: 0x00f2ff, emissiveIntensity: 0.2 });
+        for (let i = 0; i < 24; i++) {
+            const dot = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 8), dotMat);
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            const rad = 1.5 + Math.random() * 1.2;
+            dot.position.set(Math.sin(phi)*Math.cos(theta)*rad, Math.sin(phi)*Math.sin(theta)*rad, Math.cos(phi)*rad);
+            dot.userData = { theta, phi, rad, speed: 0.2 + Math.random() * 0.3 };
+            dotGroup.add(dot);
+        }
+        dotGroup.position.copy(knot.position);
+        scene.add(dotGroup);
+
+        // ============================
+        // 5. GRID FLOOR
+        // ============================
+        const grid = new THREE.GridHelper(30, 30, 0x00f2ff, 0x00f2ff);
+        grid.position.y = -4;
+        grid.material.transparent = true;
+        grid.material.opacity = 0.03;
+        scene.add(grid);
+
+        // ============================
+        // 6. CLICK EXPLOSION SYSTEM
+        // ============================
+        const bursts = [];
+        const burstMat = new THREE.PointsMaterial({
+            color: 0x00f2ff, size: 0.08, blending: THREE.AdditiveBlending,
+            transparent: true, opacity: 1, depthWrite: false,
+        });
+
+        function createBurst(x, y, z, color) {
+            const count = 60;
+            const pos = new Float32Array(count * 3);
+            const vel = [];
+            const col = color || new THREE.Color(0x00f2ff);
+            for (let i = 0; i < count; i++) {
+                pos[i*3] = x; pos[i*3+1] = y; pos[i*3+2] = z;
+                const s = 0.03 + Math.random() * 0.06;
+                vel.push(new THREE.Vector3(
+                    (Math.random() - 0.5) * s, (Math.random() - 0.5) * s, (Math.random() - 0.5) * s
+                ));
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            const mat = burstMat.clone();
+            mat.color.copy(col);
+            const mesh = new THREE.Points(geo, mat);
+            mesh.userData = { vel, life: 1 };
+            scene.add(mesh);
+            bursts.push(mesh);
+        }
+
+        document.addEventListener('click', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = -(e.clientY / window.innerHeight - 0.5) * 2;
+            const cur = auroraMaterial.uniforms.uAccent.value;
+            createBurst(x * 6, y * 4 + 0.5, -2, cur);
+        });
+
+        // ============================
+        // 7. 3D FLOATING LOGO SPRITE
+        // ============================
+        function makeTextSprite(text) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512; canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            const cur = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+            grad.addColorStop(0, '#00f2ff');
+            grad.addColorStop(0.5, '#ff00ff');
+            grad.addColorStop(1, '#00f2ff');
+            ctx.fillStyle = grad;
+            ctx.font = 'bold 64px Syncopate, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.needsUpdate = true;
+            const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.08, blending: THREE.AdditiveBlending, depthWrite: false });
+            const sprite = new THREE.Sprite(mat);
+            sprite.scale.set(8, 2, 1);
+            sprite.position.set(0, -2.5, -8);
+            return sprite;
+        }
+
+        const logo = makeTextSprite('ANIX K BINOJ');
+        scene.add(logo);
+
+        // ============================
+        // 8. MOUSE TRACKING
+        // ============================
+        const mouse = { x: 0.5, y: 0.5, px: 0.5, py: 0.5 };
+        document.addEventListener('mousemove', (e) => {
+            mouse.px = mouse.x; mouse.py = mouse.y;
+            mouse.x = e.clientX / window.innerWidth;
+            mouse.y = 1 - e.clientY / window.innerHeight;
+        });
+
+        // ============================
+        // 9. SCROLL-DRIVEN CAMERA
+        // ============================
+        let scrollTarget = 0;
+        function updateScrollCamera() {
+            const scrollY = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+            scrollTarget = scrollY * 5;
+        }
+        window.addEventListener('scroll', updateScrollCamera);
+
+        // ============================
+        // 10. RESIZE
+        // ============================
+        function onResize() {
+            const w = window.innerWidth, h = window.innerHeight;
+            camera.aspect = w / h; camera.updateProjectionMatrix();
+            renderer.setSize(w, h); composer.setSize(w, h);
+        }
+        window.addEventListener('resize', onResize);
+
+        // ============================
+        // 11. ANIMATION LOOP
+        // ============================
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+
+            mouse.px += (mouse.x - mouse.px) * 0.05;
+            mouse.py += (mouse.y - mouse.py) * 0.05;
+
+            auroraMaterial.uniforms.uTime.value = t;
+            auroraMaterial.uniforms.uMouse.value.set(mouse.px, mouse.py);
+
+            particles.rotation.y = t * 0.015 + mouse.px * 0.1;
+            particles.rotation.x = Math.sin(t * 0.01) * 0.05 + (mouse.py - 0.5) * 0.05;
+
+            knot.rotation.x = t * 0.2; knot.rotation.y = t * 0.3;
+            knot.position.y = 2 + Math.sin(t * 0.4) * 0.3;
+            knot.position.x = 4 + Math.cos(t * 0.2) * 0.5;
+
+            ico.rotation.x = t * 0.15; ico.rotation.y = t * 0.25;
+            icoWire.rotation.x = t * 0.15; icoWire.rotation.y = t * 0.25;
+            ico.position.y = -1.5 + Math.sin(t * 0.3 + 1) * 0.4;
+            icoWire.position.copy(ico.position);
+
+            dotGroup.position.x = 4 + Math.cos(t * 0.2) * 0.5;
+            dotGroup.position.y = 2 + Math.sin(t * 0.4) * 0.3;
+            dotGroup.children.forEach((dot) => {
+                const d = dot.userData;
+                const theta = d.theta + t * d.speed;
+                const phi = d.phi + t * d.speed * 0.3;
+                dot.position.set(Math.sin(phi)*Math.cos(theta)*d.rad, Math.sin(phi)*Math.sin(theta)*d.rad, Math.cos(phi)*d.rad);
+            });
+
+            logo.position.y = -2.5 + Math.sin(t * 0.15) * 0.3;
+            logo.material.opacity = 0.1 + Math.sin(t * 0.2) * 0.05;
+
+            // Update bursts
+            for (let i = bursts.length - 1; i >= 0; i--) {
+                const b = bursts[i];
+                b.userData.life -= 0.015;
+                if (b.userData.life <= 0) {
+                    scene.remove(b);
+                    b.geometry.dispose();
+                    b.material.dispose();
+                    bursts.splice(i, 1);
+                    continue;
+                }
+                const pos = b.geometry.attributes.position.array;
+                const vel = b.userData.vel;
+                for (let j = 0; j < vel.length; j++) {
+                    pos[j*3] += vel[j].x;
+                    pos[j*3+1] += vel[j].y;
+                    pos[j*3+2] += vel[j].z;
+                    vel[j].multiplyScalar(0.97);
+                }
+                b.geometry.attributes.position.needsUpdate = true;
+                b.material.opacity = b.userData.life;
+            }
+
+            const targetZ = 8 - scrollTarget;
+            camera.position.z += (targetZ - camera.position.z) * 0.03;
+            camera.position.x += ((mouse.px - 0.5) * 0.5 - camera.position.x) * 0.03;
+            camera.position.y += ((mouse.py - 0.5) * 0.3 + 0.5 - camera.position.y) * 0.03;
+            camera.lookAt(0, 0, -1);
+
+            composer.render();
+        }
+
+        animate();
+
+        // ============================
+        // 12. GSAP & SCROLL TRIGGER
+        // ============================
+        const photoCard = document.getElementById('photoCard');
+        const photoWrap = document.getElementById('photoCardWrap');
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = photoWrap.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / rect.width;
+            const dy = (e.clientY - cy) / rect.height;
+            gsap.to(photoCard, { rotationY: dx * 15, rotationX: -dy * 15, duration: 0.6, ease: 'power2.out' });
+        });
+
+        photoWrap.addEventListener('mouseleave', () => {
+            gsap.to(photoCard, { rotationY: 0, rotationX: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' });
+        });
+
+        document.querySelectorAll('.project-card').forEach((card) => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                const dx = (x / rect.width - 0.5) * 2, dy = (y / rect.height - 0.5) * 2;
+                card.style.setProperty('--mx', `${x}px`); card.style.setProperty('--my', `${y}px`);
+                gsap.to(card, { rotationY: dx * 8, rotationX: -dy * 8, duration: 0.4, ease: 'power2.out' });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { rotationY: 0, rotationX: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+            });
+        });
+
+        document.querySelectorAll('.card-item, .work-card, .company-card').forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+                el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+            });
+        });
+
+        gsap.from('.project-card', {
+            scrollTrigger: { trigger: '.project-grid', start: 'top 85%', toggleActions: 'play none none reverse' },
+            y: 80, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'power3.out',
+        });
+
+        gsap.from('.section-label, .section-line', {
+            scrollTrigger: { trigger: '.section-label', start: 'top 92%', toggleActions: 'play none none reverse' },
+            y: 30, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1,
+        });
+
+        gsap.from('.card-item', {
+            scrollTrigger: { trigger: '.card-grid', start: 'top 85%', toggleActions: 'play none none reverse' },
+            y: 50, opacity: 0, stagger: 0.08, duration: 0.6, ease: 'power2.out',
+        });
+
+        gsap.from('.work-card', {
+            scrollTrigger: { trigger: '.work-grid', start: 'top 85%', toggleActions: 'play none none reverse' },
+            y: 50, opacity: 0, stagger: 0.1, duration: 0.7, ease: 'power2.out',
+        });
+
+        gsap.from('.phil-item', {
+            scrollTrigger: { trigger: '.phil-grid', start: 'top 85%', toggleActions: 'play none none reverse' },
+            y: 40, opacity: 0, stagger: 0.06, duration: 0.5, ease: 'power2.out',
+        });
+
+        gsap.from('.about-text', {
+            scrollTrigger: { trigger: '.about-text', start: 'top 90%', toggleActions: 'play none none reverse' },
+            y: 30, opacity: 0, duration: 0.6, ease: 'power2.out',
+        });
+
+        gsap.from('.contact-links a', {
+            scrollTrigger: { trigger: '.contact-links', start: 'top 90%', toggleActions: 'play none none reverse' },
+            y: 20, opacity: 0, stagger: 0.05, duration: 0.4, ease: 'power2.out',
+        });
+
+        document.getElementById('exploreBtn').addEventListener('click', () => {
+            document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ============================
+        // 13. COLOR CYCLING
+        // ============================
+        const palette = [
+            { hex: '#00f2ff', three: new THREE.Color(0x00f2ff), rgb: '0, 242, 255' },
+            { hex: '#ff00ff', three: new THREE.Color(0xff00ff), rgb: '255, 0, 255' },
+            { hex: '#00ff88', three: new THREE.Color(0x00ff88), rgb: '0, 255, 136' },
+            { hex: '#8844ff', three: new THREE.Color(0x8844ff), rgb: '136, 68, 255' },
+            { hex: '#ff4444', three: new THREE.Color(0xff4444), rgb: '255, 68, 68' },
+        ];
+
+        let ci = 0;
+        let colorLerp = { t: 1 };
+        let prevColor = palette[0].three.clone();
+
+        function updateColors() {
+            const next = palette[(ci + 1) % palette.length];
+            const current = palette[ci];
+            prevColor.copy(current.three);
+            colorLerp.t = 0;
+
+            gsap.to(colorLerp, {
+                t: 1, duration: 2.5, ease: 'sine.inOut',
+                onUpdate: () => {
+                    const cur = prevColor.clone().lerp(next.three, colorLerp.t);
+                    knotMat.color.copy(cur); knotMat.emissive.copy(cur);
+                    auroraMaterial.uniforms.uAccent.value.copy(cur);
+                    const r = cur.r*255|0, g = cur.g*255|0, b = cur.b*255|0;
+                    document.documentElement.style.setProperty('--accent', `rgb(${r},${g},${b})`);
+                    document.documentElement.style.setProperty('--accent-rgb', `${r}, ${g}, ${b}`);
+                },
+                onComplete: () => {
+                    document.documentElement.style.setProperty('--accent', next.hex);
+                    document.documentElement.style.setProperty('--accent-rgb', next.rgb);
+                },
+            });
+
+            gsap.to('.status', {
+                color: next.hex, textShadow: `0 0 20px ${next.hex}80`, duration: 2.5, ease: 'sine.inOut',
+            });
+
+            bloomPass.strength = 0.3 + Math.random() * 0.4;
+            ci = (ci + 1) % palette.length;
+        }
+
+        setInterval(updateColors, 5000);
+
+        console.log('Anix K Binoj | Software Architect — System online');
+
+        // Preloader
+        const loader = document.getElementById('loader');
+        const started = Date.now();
+        window.addEventListener('load', () => {
+            const elapsed = Date.now() - started;
+            const delay = Math.max(0, 2000 - elapsed);
+            setTimeout(() => loader?.classList.add('hidden'), delay);
+        });
+        // Fallback: hide after 6s regardless
+        setTimeout(() => loader?.classList.add('hidden'), 6000);
+    </script>
 
 </body>
 </html>
