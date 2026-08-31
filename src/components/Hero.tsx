@@ -59,21 +59,21 @@ function Figure() {
 
       {/* figure block */}
       <motion.div
-        className="relative border border-ivory/15 bg-ink-2 overflow-hidden group"
+        className="relative glass-panel rounded-2xl overflow-hidden group border border-line/30"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
         <img
           src="/profile.jpg"
           alt="Anix K Binoj"
           draggable={false}
-          className="w-full aspect-[4/5] object-cover object-top grayscale contrast-[1.06] saturate-[0.85] group-hover:grayscale-0 group-hover:contrast-105 group-hover:saturate-110 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          className="w-full aspect-[4/5] object-cover object-top mix-blend-luminosity group-hover:mix-blend-normal opacity-80 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] scale-105 group-hover:scale-100"
         />
         {/* cinematic grade */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-ink/75 via-transparent to-gold-2/10 mix-blend-multiply pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-ink/90 via-transparent to-gold-2/20 mix-blend-multiply pointer-events-none" />
         {/* glass glare sweep */}
         <div className="sheen" aria-hidden />
         {/* bottom wash */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink/85 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink via-ink/80 to-transparent pointer-events-none" />
 
         {/* corner index */}
         <span className="absolute top-3 right-4 font-mono text-[0.5rem] tracking-[0.3em] text-ivory/60">
@@ -81,11 +81,11 @@ function Figure() {
         </span>
 
         {/* caption strip */}
-        <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-4 py-3 border-t border-line">
+        <div className="absolute bottom-0 inset-x-0 flex items-center justify-between px-4 py-3 border-t border-line/20 backdrop-blur-md bg-ink/30">
           <span className="font-mono text-[0.55rem] tracking-[0.25em] text-ivory/60">
             01 — SOFTWARE ARCHITECT
           </span>
-        <span className="font-mono text-[0.55rem] tracking-[0.25em] text-gold-2">
+        <span className="font-mono text-[0.55rem] tracking-[0.25em] text-gold text-shadow-glow">
           ANIX K BINOJ
         </span>
       </div>
@@ -204,7 +204,7 @@ function HeroBackdrop({ px, py }: { px: MotionValue<number>; py: MotionValue<num
           left: "-10%",
           top: "6%",
           background:
-            "radial-gradient(circle, rgba(79,212,197,0.55), transparent 65%)",
+            "radial-gradient(circle, rgba(0, 240, 255, 0.45), transparent 65%)",
         }}
       />
       <motion.div
@@ -217,7 +217,7 @@ function HeroBackdrop({ px, py }: { px: MotionValue<number>; py: MotionValue<num
           right: "-14%",
           top: "-4%",
           background:
-            "radial-gradient(circle, rgba(106,169,245,0.5), transparent 65%)",
+            "radial-gradient(circle, rgba(138, 43, 226, 0.4), transparent 65%)",
           animationDelay: "-3s",
         }}
       />
@@ -231,7 +231,7 @@ function HeroBackdrop({ px, py }: { px: MotionValue<number>; py: MotionValue<num
           left: "32%",
           bottom: "-12%",
           background:
-            "radial-gradient(circle, rgba(242,247,255,0.2), transparent 65%)",
+            "radial-gradient(circle, rgba(255, 0, 127, 0.25), transparent 65%)",
           animationDelay: "-6s",
         }}
       />
@@ -244,7 +244,7 @@ function HeroBackdrop({ px, py }: { px: MotionValue<number>; py: MotionValue<num
 function RolesStrip() {
   return (
     <motion.div
-      className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border-y border-line relative overflow-hidden"
+      className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line/20 border-y border-line/30 relative overflow-hidden rounded-xl glass"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1.1 }}
@@ -253,14 +253,14 @@ function RolesStrip() {
       {ROLES.map((r, i) => (
         <div
           key={r.id}
-          className="group relative bg-ink-2 px-5 py-4 overflow-hidden"
+          className="group relative bg-ink/50 px-5 py-4 overflow-hidden backdrop-blur-sm"
           data-hover
         >
-          <div className="absolute inset-0 bg-ivory/0 group-hover:bg-ivory/[0.04] transition-colors duration-500" />
-          <span className="relative block font-mono text-[0.5rem] tracking-[0.3em] text-mute mb-2">
+          <div className="absolute inset-0 bg-gold-2/0 group-hover:bg-gold-2/10 transition-colors duration-500" />
+          <span className="relative block font-mono text-[0.5rem] tracking-[0.3em] text-gold mb-2 group-hover:text-gold-3 transition-colors duration-500">
             0{i + 1}
           </span>
-          <span className="relative block font-serif text-lg md:text-xl text-ivory group-hover:text-ivory transition-colors duration-500">
+          <span className="relative block font-serif text-lg md:text-xl text-ivory font-medium group-hover:text-ivory transition-colors duration-500">
             {r.id}
           </span>
           <span className="relative block text-[0.68rem] text-mute mt-1 leading-snug">
@@ -367,14 +367,14 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <h1 className="font-serif font-light leading-[0.92] tracking-[-0.02em]">
+          <h1 className="font-serif font-light leading-[0.92] tracking-[-0.02em] text-[4rem] sm:text-[6rem] lg:text-[7.5rem]">
             <span className="block">
-              <Letters text="Anix" className="text-ivory" baseDelay={0.25} />
+              <Letters text="Anix" className="text-ivory font-medium" baseDelay={0.25} />
             </span>
             <span className="block">
               <span className="inline-block overflow-hidden align-bottom">
                 <motion.span
-                  className="inline-block text-chrome italic font-normal"
+                  className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-gold to-gold-2 italic font-bold pr-4"
                   initial={{ y: "120%" }}
                   animate={{ y: 0 }}
                   transition={{
@@ -386,7 +386,7 @@ export default function Hero() {
                   K.
                 </motion.span>
               </span>{" "}
-              <Letters text="Binoj" className="text-ivory/75" baseDelay={0.5} />
+              <Letters text="Binoj" className="text-ivory/90 font-medium" baseDelay={0.5} />
             </span>
           </h1>
 
@@ -430,24 +430,23 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#contact"
-                className="group relative inline-flex items-center gap-6 px-10 py-4 bg-ivory text-ink text-[0.62rem] font-mono tracking-[0.35em] uppercase overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(233,238,244,0.15)]"
+                className="group relative inline-flex items-center gap-6 px-10 py-4 bg-gold text-ink text-[0.62rem] font-mono font-bold tracking-[0.35em] uppercase overflow-hidden transition-all duration-500 rounded-full hover:shadow-[0_0_40px_rgba(0,240,255,0.4)]"
                 data-hover
                 data-cursor-label="Start a project"
               >
-                <span className="absolute inset-0 bg-ivory/15 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                 <span className="relative">Start a Project</span>
-                <span className="relative">→</span>
+                <span className="relative group-hover:translate-x-2 transition-transform duration-300">→</span>
               </a>
             </Magnetic>
             <a
               href="#work"
-              className="group relative inline-flex items-center gap-6 px-10 py-4 border border-ivory/40 text-ivory/80 text-[0.62rem] font-mono tracking-[0.35em] uppercase overflow-hidden transition-colors duration-500 hover:border-ivory hover:text-ivory"
+              className="group relative inline-flex items-center gap-6 px-10 py-4 border border-gold-2/50 text-ivory text-[0.62rem] font-mono tracking-[0.35em] uppercase overflow-hidden transition-colors duration-500 hover:border-gold-2 hover:bg-gold-2/10 rounded-full backdrop-blur-sm"
               data-hover
               data-cursor-label="View work ↓"
             >
-              <span className="absolute inset-0 bg-ivory/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
               <span className="relative">View Work</span>
-              <span className="relative">→</span>
+              <span className="relative group-hover:translate-y-1 transition-transform duration-300">↓</span>
             </a>
           </motion.div>
         </motion.div>

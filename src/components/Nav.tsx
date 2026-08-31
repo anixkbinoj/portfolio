@@ -22,19 +22,19 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[90] transition-all duration-500 ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-[90] transition-all duration-500 w-[95%] max-w-[1600px] rounded-2xl ${
         scrolled
-          ? "bg-ink/70 backdrop-blur-md py-4"
-          : "bg-transparent py-7"
+          ? "glass-panel py-3 px-6 shadow-[0_8px_32px_rgba(0,240,255,0.05)]"
+          : "bg-transparent py-5 px-6"
       }`}
     >
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <a
           href="#top"
-          className="font-mono text-[0.7rem] tracking-[0.35em] uppercase text-ivory glitch-hover"
+          className="font-mono text-[0.7rem] tracking-[0.35em] uppercase text-ivory glitch-hover flex items-center gap-2"
           data-hover
         >
-          ANIX<span className="text-gold-2">K</span>BINOJ
+          ANIX<span className="text-gold font-bold">K</span>BINOJ
         </a>
 
         <nav className="hidden lg:flex items-center gap-10">
@@ -42,19 +42,19 @@ export default function Nav() {
             <a key={item.href} href={item.href} className="group relative">
               <ScrambleText
                 text={item.label}
-                className="font-mono text-[0.62rem] tracking-[0.28em] uppercase text-mute transition-colors duration-300 group-hover:text-ivory"
+                className="font-mono text-[0.62rem] tracking-[0.28em] uppercase text-mute transition-colors duration-300 group-hover:text-gold"
               />
-              <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-ivory/70 transition-all duration-500 group-hover:w-full" />
+              <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-gold-2 transition-all duration-500 group-hover:w-full rounded-full shadow-[0_0_10px_rgba(0,240,255,0.5)]" />
             </a>
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 glass px-4 py-1.5 rounded-full border border-gold-2/20">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-ivory opacity-60 animate-ping" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-ivory" />
+            <span className="absolute inline-flex h-full w-full rounded-full bg-gold opacity-80 animate-ping" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-gold shadow-[0_0_8px_rgba(0,240,255,0.8)]" />
           </span>
-          <span className="font-mono text-[0.58rem] tracking-[0.25em] uppercase text-ivory/60">
+          <span className="font-mono text-[0.58rem] tracking-[0.25em] uppercase text-ivory/80 font-semibold">
             Available
           </span>
         </div>

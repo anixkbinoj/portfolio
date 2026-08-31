@@ -5,7 +5,7 @@ import { CAPABILITIES } from "../data"
 
 export default function Capabilities() {
   return (
-    <section id="capabilities" className="relative py-28 md:py-40 bg-ink-2/40 border-y border-line">
+    <section id="capabilities" className="relative py-28 md:py-40 bg-ink/50 backdrop-blur-md border-y border-gold-2/10 shadow-[inset_0_0_100px_rgba(138,43,226,0.05)]">
       <div className="max-w-[1600px] mx-auto px-6 md:px-12">
         <SectionHeading
           num="02"
@@ -23,24 +23,24 @@ export default function Capabilities() {
                 initial="rest"
                 animate="rest"
               >
-                <span className="font-serif italic text-4xl md:text-5xl font-light text-ivory/25 group-hover:text-ivory/60 transition-colors duration-500">
+                <span className="font-serif italic text-4xl md:text-5xl font-light text-ivory/10 group-hover:text-gold transition-colors duration-500 font-bold drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">
                   {c.num}
                 </span>
-                <h3 className="font-serif text-2xl md:text-4xl font-light text-ivory transition-transform duration-500 group-hover:translate-x-3">
+                <h3 className="font-serif text-2xl md:text-4xl font-semibold text-ivory transition-transform duration-500 group-hover:translate-x-3 group-hover:text-gold-3">
                   {c.title}
                 </h3>
                 <p className="text-mute font-light text-sm md:text-base leading-relaxed md:max-w-xl">
                   {c.text}
                 </p>
                 <motion.span
-                  className="hidden md:block absolute right-0 text-ivory/70 opacity-0 -translate-x-4"
+                  className="hidden md:block absolute right-0 text-gold opacity-0 font-bold"
                   variants={{
-                    rest: { opacity: 0, x: 0 },
+                    rest: { opacity: 0, x: -20 },
                     hover: { opacity: 1, x: 0 },
                   }}
                   transition={{ duration: 0.4 }}
                 >
-                  →
+                  <span className="inline-block drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]">→</span>
                 </motion.span>
               </motion.div>
             </Reveal>

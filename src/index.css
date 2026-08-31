@@ -1,23 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #05070b;
-  --color-ink-2: #0a0e15;
-  --color-ink-3: #111826;
-  --color-line: rgba(150, 170, 195, 0.14);
-  --color-gold: #4fd4c5;
-  --color-gold-2: #6aa9f5;
-  --color-gold-3: #f2f7ff;
-  --color-ivory: #e9eef4;
-  --color-mute: #9aa7b8;
-  --color-wine: #0c1420;
+  --color-ink: #030407;
+  --color-ink-2: #080b12;
+  --color-ink-3: #121826;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-gold: #00f0ff;
+  --color-gold-2: #8a2be2;
+  --color-gold-3: #ff007f;
+  --color-ivory: #f8fafc;
+  --color-mute: #8b9bb4;
+  --color-wine: #0f0c1a;
 
-  --font-serif: "Manrope", system-ui, sans-serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
-  --font-mono: "Space Grotesk", ui-monospace, monospace;
+  --font-serif: "Outfit", "Clash Display", system-ui, sans-serif;
+  --font-sans: "Inter", "Satoshi", system-ui, sans-serif;
+  --font-mono: "Fira Code", ui-monospace, monospace;
 
-  --tracking-lux: 0.42em;
-  --tracking-wide2: 0.22em;
+  --tracking-lux: 0.35em;
+  --tracking-wide2: 0.15em;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(8, 11, 18, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 html {

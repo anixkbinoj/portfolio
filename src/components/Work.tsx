@@ -18,25 +18,25 @@ export default function Work() {
           {WORK.map((w, i) => (
             <Reveal key={w.name} delay={i * 0.12}>
               <motion.article
-                className="group relative h-full flex flex-col border border-line bg-ink-2/50 p-8 md:p-10 overflow-hidden transition-colors duration-500 hover:border-ivory/25"
+                className="group relative h-full flex flex-col glass-panel rounded-2xl p-8 md:p-10 overflow-hidden transition-all duration-500 hover:border-gold/40 hover:shadow-[0_20px_40px_rgba(0,240,255,0.1)]"
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 data-cursor-label={`${w.name} · ${w.status}`}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(160,180,210,0.06),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(0,240,255,0.1),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                 <div className="relative flex items-start justify-between mb-10">
-                  <span className="font-sans text-4xl font-light text-ivory/20 group-hover:text-ivory/40 transition-colors duration-500 tabular-nums">
+                  <span className="font-sans text-5xl font-light text-ivory/10 group-hover:text-gold/20 transition-colors duration-500 tabular-nums font-bold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-mono text-[0.55rem] tracking-[0.25em] text-ivory/70 border border-line px-4 py-2 rounded-full">
+                  <span className="font-mono text-[0.55rem] tracking-[0.25em] text-ivory/80 border border-gold/30 bg-gold/5 px-4 py-2 rounded-full backdrop-blur-sm">
                     {w.status}
                   </span>
                 </div>
 
                 <div className="relative mb-4">
-                  <span className="label block mb-6">// {w.name}</span>
-                  <h3 className="font-serif text-3xl md:text-4xl font-light text-ivory leading-tight">
+                  <span className="label block mb-6 text-gold-2">// {w.name}</span>
+                  <h3 className="font-serif text-3xl md:text-4xl font-semibold text-ivory leading-tight group-hover:text-gold transition-colors duration-300">
                     {w.title}
                   </h3>
                 </div>
@@ -49,16 +49,16 @@ export default function Work() {
                   {w.points.map((p) => (
                     <li
                       key={p}
-                      className="flex items-start gap-4 text-sm text-ivory/60 font-light"
+                      className="flex items-start gap-4 text-sm text-ivory/70 font-light"
                     >
-                      <span className="text-ivory/50 mt-1 text-xs">—</span>
+                      <span className="text-gold mt-1 text-xs font-bold">»</span>
                       {p}
                     </li>
                   ))}
                 </ul>
 
-                <div className="relative border-t border-line pt-6">
-                  <span className="font-mono text-[0.6rem] tracking-[0.2em] text-gold-2">
+                <div className="relative border-t border-line/30 pt-6">
+                  <span className="font-mono text-[0.6rem] tracking-[0.2em] text-gold font-bold">
                     {w.tech}
                   </span>
                 </div>

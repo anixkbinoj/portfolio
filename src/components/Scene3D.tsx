@@ -9,6 +9,7 @@ import {
 } from "@react-three/drei"
 import {
   Bloom,
+  ChromaticAberration,
   DepthOfField,
   EffectComposer,
 } from "@react-three/postprocessing"
@@ -120,26 +121,26 @@ function GoldenKnot({
         <mesh ref={knot} scale={1}>
           <torusKnotGeometry args={[1, 0.3, 220, 32]} />
           <meshPhysicalMaterial
-            color="#e6edf6"
+            color="#ffffff"
             metalness={1}
-            roughness={0.18}
+            roughness={0.1}
             clearcoat={1}
-            clearcoatRoughness={0.14}
-            iridescence={0.5}
-            iridescenceIOR={1.35}
-            iridescenceThicknessRange={[100, 380]}
-            envMapIntensity={1.2}
-            emissive="#274b8f"
-            emissiveIntensity={0.1}
+            clearcoatRoughness={0.1}
+            iridescence={0.8}
+            iridescenceIOR={1.4}
+            iridescenceThicknessRange={[100, 400]}
+            envMapIntensity={2.0}
+            emissive="#8a2be2"
+            emissiveIntensity={0.25}
           />
         </mesh>
         <mesh ref={wire} scale={1.22}>
           <torusKnotGeometry args={[1, 0.3, 160, 20]} />
           <meshBasicMaterial
-            color="#6aa9f5"
+            color="#00f0ff"
             wireframe
             transparent
-            opacity={0.05}
+            opacity={0.15}
           />
         </mesh>
       </Float>
@@ -206,9 +207,9 @@ function Rings({ animated }: MotionProps) {
         <mesh key={i} rotation={[r.tilt, 0, 0]}>
           <torusGeometry args={[r.radius, r.tube, 8, 180]} />
           <meshBasicMaterial
-            color={i % 2 === 0 ? "#e9eef4" : "#6aa9f5"}
+            color={i % 2 === 0 ? "#00f0ff" : "#8a2be2"}
             transparent
-            opacity={r.opacity}
+            opacity={r.opacity * 1.5}
             toneMapped={false}
           />
         </mesh>
@@ -236,11 +237,17 @@ function PostFX({ tier, knotRef }: { tier: GpuTier; knotRef: TargetRef }) {
   const effects = [
     <Bloom
       key="bloom"
-      intensity={0.55}
-      luminanceThreshold={1}
-      luminanceSmoothing={0.12}
+      intensity={1.2}
+      luminanceThreshold={0.4}
+      luminanceSmoothing={0.2}
       mipmapBlur
-      radius={0.75}
+      radius={0.8}
+    />,
+    <ChromaticAberration
+      key="ca"
+      offset={new THREE.Vector2(0.003, 0.003)}
+      radialModulation={false}
+      modulationOffset={0}
     />,
     ...(tier === 2
       ? [
