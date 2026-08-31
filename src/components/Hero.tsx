@@ -63,7 +63,7 @@ function Figure() {
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       >
         <img
-          src="/profile.jpg"
+          src="/profile.jpeg"
           alt="Anix K Binoj"
           draggable={false}
           className="w-full aspect-[4/5] object-cover object-top mix-blend-luminosity group-hover:mix-blend-normal opacity-80 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] scale-105 group-hover:scale-100"

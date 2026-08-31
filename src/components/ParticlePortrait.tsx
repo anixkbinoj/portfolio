@@ -135,7 +135,7 @@ function useFaceData(variant: Variant) {
 
     const img = new Image()
     img.crossOrigin = "anonymous"
-    img.src = "/profile.jpg"
+    img.src = "/profile.jpeg"
     img.onload = () =>
       process((ctx) => {
         if (variant === "photo") {
@@ -473,7 +473,7 @@ export default function ParticlePortrait({
       </motion.div>
       {isPhoto && (
         <motion.img
-          src="/profile.jpg"
+          src="/profile.jpeg"
           alt=""
           draggable={false}
           className="absolute inset-0 w-full h-full object-cover object-top"
