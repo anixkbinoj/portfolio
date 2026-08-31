@@ -37,8 +37,7 @@ export default function About() {
             </p>
             <Reveal delay={0.15}>
               <p className="mt-10 text-mute font-light leading-relaxed max-w-xl">
-                From founding Anix &amp; Co to operating product engineering at
-                Antolanz, I own outcomes end to end — design, architecture,
+                From founding Anix &amp; Co, I own outcomes end to end — design, architecture,
                 delivery, and the people who carry it forward.
               </p>
             </Reveal>

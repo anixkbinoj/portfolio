@@ -25,13 +25,6 @@ export const VENTURES = [
     href: "https://anixandco.gt.tc/",
     note: "Venture studio building production-grade software",
   },
-  {
-    name: "ANTOLANZ PVT LTD",
-    role: "Co-Founder & Chief Operating Officer",
-    img: "/antolanz-logo.png",
-    href: null,
-    note: "Engineering operations & product delivery",
-  },
 ]
 
 export const CAPABILITIES = [
@@ -73,14 +66,14 @@ export const WORK = [
   },
   {
     name: "ALLOXAM",
-    title: "Exam Logistics & Hall Allocation Engine",
-    body: "Seating allocation automation designed to eliminate manual errors and cut administrative workload.",
+    title: "Unified Campus Operating System",
+    body: "A single operating system that controls every campus operation — academics, administration, logistics, and resources — unified inside one app.",
     points: [
-      "Automatic seating generation",
-      "Conflict-free allocation logic",
-      "Exportable seating reports",
+      "End-to-end campus control in one app",
+      "Academic, admin & logistics unified",
+      "Automated workflows & approvals",
     ],
-    tech: "System Design · Backend · Automation",
+    tech: "System Architecture · Full-Stack · Automation",
     status: "PRODUCTION_READY",
   },
   {
@@ -101,7 +94,7 @@ export const DEPLOYMENTS = [
   {
     num: "01",
     name: "ALLOXAM",
-    title: "Exam Logistics & Hall Allocation Engine",
+    title: "Unified Campus Operating System",
     status: "PRODUCTION_READY",
   },
   {
@@ -140,7 +133,6 @@ export const PHILOSOPHY = [
 export const MARQUEE = [
   "Software Architect",
   "Founder — Anix & Co",
-  "COO — Antolanz",
   "Full-Stack Engineer",
   "AI / ML Engineer",
   "Product Builder",
@@ -155,8 +147,8 @@ export const ROLES = [
 
 export const INTRO_LINES = [
   "Anix K Binoj — Software Architect",
-  "Founder, Anix & Co · Co-Founder & COO, Antolanz",
+  "Founder, Anix & Co",
   "Full-stack engineering · System design · AI / ML",
-  "07 deployments live · 02 companies built",
+  "07 deployments live · 01 company built",
   "Documents · ships · owns outcomes",
 ]

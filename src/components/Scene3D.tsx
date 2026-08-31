@@ -327,7 +327,7 @@ function VisibilityPause() {
 
 export default function Scene3D() {
   const tier = useMemo<GpuTier>(() => getGpuTier(), [])
-  const [dprScale, setDprScale] = useState(1)
+  const [dprScale, setDprScale] = useState(0.85)
   const knotRef = useRef<THREE.Object3D | null>(null)
 
   const animated = tier > 0

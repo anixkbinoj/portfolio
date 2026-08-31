@@ -1,7 +1,22 @@
-import { useRef } from "react"
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  AnimatePresence,
+  type MotionValue,
+} from "framer-motion"
 import Magnetic from "./Magnetic"
 import { CONTACT, ROLES } from "../data"
+
+const CYCLE = [
+  "Systems Architect",
+  "Product Designer",
+  "Full-Stack Engineer",
+  "AI / ML Builder",
+  "Venture Founder",
+]
 
 function Figure() {
   const ref = useRef<HTMLDivElement>(null)
@@ -19,10 +34,10 @@ function Figure() {
   return (
     <motion.div
       ref={ref}
-      className="relative w-full max-w-[400px] mx-auto lg:mx-0 lg:ml-auto"
+      className="relative w-full max-w-[280px] sm:max-w-[400px] mx-auto lg:mx-0 lg:ml-auto"
       style={{ perspective: 1000 }}
-      initial={{ opacity: 0, y: 44 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 44, rotateY: 14 }}
+      animate={{ opacity: 1, y: 0, rotateY: 0 }}
       transition={{ duration: 1, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
       data-cursor-label="Anix K Binoj"
       onPointerMove={(e) => {
@@ -87,14 +102,154 @@ function Figure() {
   )
 }
 
+function Letters({
+  text,
+  className = "",
+  baseDelay = 0,
+}: {
+  text: string
+  className?: string
+  baseDelay?: number
+}) {
+  return (
+    <>
+      {text.split("").map((ch, i) => (
+        <span
+          key={i}
+          className="inline-block overflow-hidden align-bottom"
+          style={{ lineHeight: "0.92" }}
+        >
+          <motion.span
+            className={`inline-block ${className}`}
+            initial={{ y: "120%" }}
+            animate={{ y: 0 }}
+            transition={{
+              duration: 0.95,
+              delay: baseDelay + i * 0.045,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {ch === " " ? " " : ch}
+          </motion.span>
+        </span>
+      ))}
+    </>
+  )
+}
+
+function CyclingWord() {
+  const [i, setI] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setI((v) => (v + 1) % CYCLE.length), 2600)
+    return () => clearInterval(t)
+  }, [])
+
+  return (
+    <span className="relative inline-block overflow-hidden align-baseline text-aurora">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={i}
+          className="inline-block whitespace-nowrap"
+          initial={{ y: "110%", opacity: 0, filter: "blur(6px)" }}
+          animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+          exit={{ y: "-110%", opacity: 0, filter: "blur(6px)" }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {CYCLE[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  )
+}
+
+function LiveClock() {
+  const [t, setT] = useState(() => new Date())
+  useEffect(() => {
+    const id = setInterval(() => setT(new Date()), 1000)
+    return () => clearInterval(id)
+  }, [])
+  const p = (n: number) => n.toString().padStart(2, "0")
+  return (
+    <span className="font-mono text-[0.55rem] tracking-[0.3em] text-mute uppercase tabular-nums">
+      {p(t.getHours())}:{p(t.getMinutes())}:{p(t.getSeconds())} IST
+    </span>
+  )
+}
+
+function HeroBackdrop({ px, py }: { px: MotionValue<number>; py: MotionValue<number> }) {
+  const x1 = useTransform(px, [-0.5, 0.5], [60, -60])
+  const y1 = useTransform(py, [-0.5, 0.5], [44, -44])
+  const x2 = useTransform(px, [-0.5, 0.5], [-70, 70])
+  const y2 = useTransform(py, [-0.5, 0.5], [-34, 34])
+  const x3 = useTransform(px, [-0.5, 0.5], [40, -40])
+  const y3 = useTransform(py, [-0.5, 0.5], [-50, 50])
+
+  return (
+    <motion.div
+      className="absolute inset-0 overflow-hidden"
+      aria-hidden
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.1, delay: 1.2, ease: "easeOut" }}
+    >
+      <div className="absolute inset-0 grid-floor opacity-35" />
+      <motion.div
+        className="orb orb-drift"
+        style={{
+          x: x1,
+          y: y1,
+          width: 540,
+          height: 540,
+          left: "-10%",
+          top: "6%",
+          background:
+            "radial-gradient(circle, rgba(79,212,197,0.55), transparent 65%)",
+        }}
+      />
+      <motion.div
+        className="orb orb-drift"
+        style={{
+          x: x2,
+          y: y2,
+          width: 640,
+          height: 640,
+          right: "-14%",
+          top: "-4%",
+          background:
+            "radial-gradient(circle, rgba(106,169,245,0.5), transparent 65%)",
+          animationDelay: "-3s",
+        }}
+      />
+      <motion.div
+        className="orb orb-drift"
+        style={{
+          x: x3,
+          y: y3,
+          width: 440,
+          height: 440,
+          left: "32%",
+          bottom: "-12%",
+          background:
+            "radial-gradient(circle, rgba(242,247,255,0.2), transparent 65%)",
+          animationDelay: "-6s",
+        }}
+      />
+      <div className="scan-beam" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_38%,rgba(5,7,11,0.7))]" />
+    </motion.div>
+  )
+}
+
 function RolesStrip() {
   return (
     <motion.div
-      className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border-y border-line"
+      className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border-y border-line relative overflow-hidden"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1.1 }}
     >
+      <div className="absolute inset-0 scanlines opacity-30 pointer-events-none" aria-hidden />
       {ROLES.map((r, i) => (
         <div
           key={r.id}
@@ -118,11 +273,58 @@ function RolesStrip() {
 }
 
 export default function Hero() {
+  const [interactive, setInteractive] = useState(false)
+
+  useEffect(() => {
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)")
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const update = () => setInteractive(fine.matches && !reduced.matches)
+    update()
+    fine.addEventListener("change", update)
+    reduced.addEventListener("change", update)
+    return () => {
+      fine.removeEventListener("change", update)
+      reduced.removeEventListener("change", update)
+    }
+  }, [])
+
+  const px = useMotionValue(0)
+  const py = useMotionValue(0)
+  const tx = useSpring(useTransform(px, [-0.5, 0.5], [18, -18]), {
+    stiffness: 60,
+    damping: 18,
+  })
+  const ty = useSpring(useTransform(py, [-0.5, 0.5], [12, -12]), {
+    stiffness: 60,
+    damping: 18,
+  })
+  const tiltX = useSpring(useTransform(py, [-0.5, 0.5], [7, -7]), {
+    stiffness: 60,
+    damping: 18,
+  })
+  const tiltY = useSpring(useTransform(px, [-0.5, 0.5], [-9, 9]), {
+    stiffness: 60,
+    damping: 18,
+  })
+
   return (
     <section
       id="top"
       className="relative min-h-screen flex flex-col justify-center pt-28 pb-24 overflow-hidden"
+      onPointerMove={(e) => {
+        if (!interactive) return
+        const r = e.currentTarget.getBoundingClientRect()
+        px.set((e.clientX - r.left) / r.width - 0.5)
+        py.set((e.clientY - r.top) / r.height - 0.5)
+      }}
+      onPointerLeave={() => {
+        px.set(0)
+        py.set(0)
+      }}
     >
+      <HeroBackdrop px={px} py={py} />
+      <div className="hud-frame" aria-hidden />
+
       {/* vertical index */}
       <div
         className="absolute left-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-4"
@@ -137,7 +339,21 @@ export default function Hero() {
 
       <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-16 lg:gap-12 items-center">
         {/* Text */}
-        <div className="order-2 lg:order-1 lg:col-span-7">
+        <motion.div
+          className="order-2 lg:order-1 lg:col-span-7 relative"
+          style={
+            interactive
+              ? {
+                  x: tx,
+                  y: ty,
+                  rotateX: tiltX,
+                  rotateY: tiltY,
+                  transformPerspective: 900,
+                  transformStyle: "preserve-3d",
+                }
+              : undefined
+          }
+        >
           <motion.div
             className="flex items-center gap-6 mb-10"
             initial={{ opacity: 0, y: 16 }}
@@ -152,26 +368,25 @@ export default function Hero() {
           </motion.div>
 
           <h1 className="font-serif font-light leading-[0.92] tracking-[-0.02em]">
-            <span className="block overflow-hidden">
-              <motion.span
-                className="block text-[clamp(4.5rem,12vw,11rem)] text-ivory"
-                initial={{ y: "112%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Anix
-              </motion.span>
+            <span className="block">
+              <Letters text="Anix" className="text-ivory" baseDelay={0.25} />
             </span>
-            <span className="block overflow-hidden">
-              <motion.span
-                className="block text-[clamp(4.5rem,12vw,11rem)]"
-                initial={{ y: "112%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <em className="text-chrome italic font-normal">K.</em>{" "}
-                <span className="text-ivory/60">Binoj</span>
-              </motion.span>
+            <span className="block">
+              <span className="inline-block overflow-hidden align-bottom">
+                <motion.span
+                  className="inline-block text-chrome italic font-normal"
+                  initial={{ y: "120%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    duration: 0.95,
+                    delay: 0.42,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  K.
+                </motion.span>
+              </span>{" "}
+              <Letters text="Binoj" className="text-ivory/75" baseDelay={0.5} />
             </span>
           </h1>
 
@@ -181,17 +396,13 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <span className="text-ivory/60">Software Architect</span>
+            <span className="text-ivory/80">Software Architect</span>
             <span className="text-ivory/30">/</span>
-            <span>Designer of systems</span>
-            <span className="text-ivory/30">/</span>
-            <span>Developer of products</span>
-            <span className="text-ivory/30">/</span>
-            <span>Founder</span>
+            <CyclingWord />
           </motion.div>
 
           <motion.p
-            className="mt-6 max-w-xl text-ivory/70 font-light text-base md:text-lg leading-relaxed"
+            className="mt-6 max-w-xl text-ivory/85 font-light text-base md:text-lg leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -205,8 +416,7 @@ export default function Hero() {
               className="text-ivory border-b border-gold/50 hover:border-gold transition-colors"
             >
               Anix &amp; Co
-            </a>{" "}
-            and Co-Founder &amp; COO at Antolanz Pvt Ltd.
+            </a>
           </motion.p>
 
           <RolesStrip />
@@ -240,7 +450,7 @@ export default function Hero() {
               <span className="relative">→</span>
             </a>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Figure */}
         <div className="order-1 lg:order-2 lg:col-span-5 pt-6 lg:pt-0">
@@ -258,6 +468,8 @@ export default function Hero() {
         <span className="font-mono text-[0.55rem] tracking-[0.3em] text-mute uppercase">
           9.6°N 76.2°E
         </span>
+        <span className="w-px h-4 bg-line" />
+        <LiveClock />
         <span className="w-px h-4 bg-line" />
         <span className="font-mono text-[0.55rem] tracking-[0.3em] text-mute uppercase flex items-center gap-2">
           <span className="relative flex h-1.5 w-1.5">

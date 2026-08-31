@@ -8,7 +8,7 @@ const AXES = [
   { label: "AI / ML", value: 0.88, desc: "Intelligent features embedded into production software" },
   { label: "Product Design", value: 0.9, desc: "UX-first interfaces with rigorous interaction thinking" },
   { label: "Leadership", value: 0.9, desc: "Team operations, workflow discipline, documentation culture" },
-  { label: "Entrepreneurship", value: 0.93, desc: "Venture building — Anix & Co, Antolanz, live products" },
+  { label: "Entrepreneurship", value: 0.93, desc: "Venture building — Anix & Co, live products" },
 ]
 
 const CX = 170
@@ -201,7 +201,7 @@ export default function SkillHex() {
                       {AXES[active].label}
                     </span>
                   </div>
-                  <p className="text-ivory/70 font-light leading-relaxed max-w-lg">
+                  <p className="text-ivory/85 font-light leading-relaxed max-w-lg">
                     {AXES[active].desc}
                   </p>
                   <div className="mt-8 w-full max-w-lg h-px bg-line relative overflow-hidden">

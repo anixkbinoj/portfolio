@@ -32,7 +32,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Anix K Binoj
           </p>
           <p className="font-mono text-[0.55rem] tracking-[0.3em] text-mute uppercase">
-            Software Architect · Founder · COO
+            Software Architect · Founder
           </p>
           <a
             href="#top"
