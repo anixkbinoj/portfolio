@@ -43,16 +43,18 @@ export default function About() {
             </Reveal>
             <Reveal delay={0.2}>
               <a
-                href="#contact"
-                className="group mt-12 inline-flex items-center gap-6 font-mono text-[0.62rem] tracking-[0.35em] uppercase text-ivory/80"
+                href="https://anixkbinoj.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="group mt-12 inline-flex items-center gap-6 font-mono text-[0.62rem] tracking-[0.35em] uppercase text-ivory/80 text-gold-2 hover:text-gold transition-colors"
                 data-hover
-                data-cursor-label="Connect"
+                data-cursor-label="Visit Live"
               >
-                <span className="border-b border-ivory/30 pb-1 group-hover:border-ivory transition-colors">
-                  Start a conversation
+                <span className="border-b border-gold-2/30 pb-1 group-hover:border-gold transition-colors">
+                  ANIX K BINOJ — Software Architect
                 </span>
-                <span className="transition-transform duration-500 group-hover:translate-x-2">
-                  →
+                <span className="transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-1">
+                  ↗
                 </span>
               </a>
             </Reveal>
